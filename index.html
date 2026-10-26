@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; font: 14px system-ui, -apple-system, "Segoe UI", sans-serif; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<meta name="robots" content="noindex, nofollow">
+<title>Летопись ᛖᛋᚺᛜᛋᛠⰓᛁ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Раскладка: одна длинная лента-летопись, разделы слева направо не делятся; номинации и досье — сетки, которые на телефоне складываются в колонку */
+:root {
+  --bg: #F1EFF6;
+  --surface: #FFFFFF;
+  --ink: #1C1727;
+  --muted: #6A6180;
+  --line: #DCD6E8;
+  --wing: #5148C9;
+  --wing-soft: #E4E1FA;
+  --rose: #C2366B;
+  --rose-soft: #F8DDE7;
+  --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #13111B; --surface: #1C1928; --ink: #ECE8F5; --muted: #9F96B4; --line: #2F2A40;
+    --wing: #A3A6FF; --wing-soft: #2A2750; --rose: #FF7FA9; --rose-soft: #4A2133; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #13111B; --surface: #1C1928; --ink: #ECE8F5; --muted: #9F96B4; --line: #2F2A40;
+  --wing: #A3A6FF; --wing-soft: #2A2750; --rose: #FF7FA9; --rose-soft: #4A2133; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5;
+}
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+  display: flex; flex-direction: column; gap: 72px;
+}
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1rem; font-weight: 700; }
+p { margin: 0; }
+.eyebrow { font-family: var(--mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--wing); }
+.lead { color: var(--muted); max-width: 62ch; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+section { display: flex; flex-direction: column; gap: 20px; }
+.head { display: flex; flex-direction: column; gap: 8px; }
+
+/* hero */
+.hero { display: flex; flex-direction: column; gap: 28px; padding-top: 24px; }
+.runes { font-family: var(--display); font-weight: 900; font-size: clamp(2.6rem, 11vw, 6.5rem); line-height: 1; letter-spacing: .02em;
+  background: linear-gradient(100deg, var(--wing) 10%, var(--rose) 90%); -webkit-background-clip: text; background-clip: text; color: transparent; overflow-wrap: anywhere; }
+.hero .sub { font-family: var(--display); font-weight: 500; font-size: clamp(1rem, 2.6vw, 1.35rem); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.fact { background: var(--surface); padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; }
+.fact b { font-family: var(--mono); font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.fact span { color: var(--muted); font-size: .85rem; }
+
+/* графики */
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 640px; height: auto; }
+.chart text { fill: var(--muted); font-family: var(--mono); font-size: 11px; }
+.chart .bar { fill: var(--wing); }
+.chart .bar.peak { fill: var(--rose); }
+.chart .note { fill: var(--ink); font-family: var(--body); font-size: 12px; font-weight: 600; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.eras { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.era { border-left: 3px solid var(--wing); padding: 4px 0 4px 12px; display: flex; flex-direction: column; gap: 2px; }
+.era.rose { border-color: var(--rose); }
+.era b { font-family: var(--display); font-size: .95rem; }
+.era span { color: var(--muted); font-size: .9rem; }
+
+/* лидерборд */
+.board { display: flex; flex-direction: column; gap: 6px; }
+.row { display: grid; grid-template-columns: 28px minmax(0, 190px) 1fr 76px; align-items: center; gap: 10px; }
+.row .rk { font-family: var(--mono); color: var(--muted); font-size: .85rem; text-align: right; }
+.row .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.row .track { height: 14px; background: var(--wing-soft); border-radius: 7px; overflow: hidden; }
+.row .fill { height: 100%; background: var(--wing); border-radius: 7px; }
+.row.rose .fill { background: var(--rose); }
+.row.rose .track { background: var(--rose-soft); }
+.row .val { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: .9rem; text-align: right; }
+@media (max-width: 520px) { .row { grid-template-columns: 22px minmax(0, 110px) 1fr 64px; gap: 8px; } }
+
+/* номинации */
+.awards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.award { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.award .t { font-family: var(--display); font-weight: 700; font-size: 1rem; }
+.award .d { color: var(--muted); font-size: .82rem; line-height: 1.35; min-height: 2.2em; }
+.award .w { font-size: 1.25rem; font-weight: 600; overflow-wrap: anywhere; }
+.award .v { font-family: var(--mono); color: var(--rose); font-size: .95rem; }
+.award ol { margin: 0; padding-left: 18px; color: var(--muted); font-size: .82rem; }
+
+/* две колонки */
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+.split > div { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+
+/* ссоры */
+.fight { display: grid; grid-template-columns: 120px 1fr; gap: 4px 14px; padding: 12px 0; border-top: 1px solid var(--line); }
+.fight:first-child { border-top: 0; }
+.fight .when { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+.fight .who { font-weight: 500; }
+.fight .stat { grid-column: 2; color: var(--muted); font-size: .85rem; }
+@media (max-width: 520px) { .fight { grid-template-columns: 1fr; } .fight .stat { grid-column: 1; } }
+.caveat { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 12px; max-width: 70ch; }
+
+/* слова */
+.chips { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: baseline; }
+.chip { background: var(--wing-soft); color: var(--ink); border-radius: 999px; padding: 2px 10px; line-height: 1.6; }
+.chip small { font-family: var(--mono); color: var(--muted); font-size: .7em; margin-left: 4px; }
+.chip.rose { background: var(--rose-soft); }
+.emojis { display: flex; flex-wrap: wrap; gap: 10px; font-size: 1.6rem; }
+.emojis span { display: flex; flex-direction: column; align-items: center; }
+.emojis small { font-family: var(--mono); font-size: .7rem; color: var(--muted); }
+.years { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+/* часы */
+.hours { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; align-items: end; height: 140px; }
+.hours div { background: var(--wing); border-radius: 3px 3px 0 0; min-height: 2px; }
+.hours div.hot { background: var(--rose); }
+.hlabels { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; font-family: var(--mono); font-size: .65rem; color: var(--muted); text-align: center; }
+
+/* рекорды */
+.records { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0 28px; }
+.rec { border-top: 1px solid var(--line); padding: 14px 0; display: flex; flex-direction: column; gap: 4px; }
+.rec b { font-family: var(--mono); font-size: 1.5rem; font-variant-numeric: tabular-nums; color: var(--wing); }
+.rec span { color: var(--muted); font-size: .88rem; }
+
+/* опросы и цитаты */
+.polls { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.poll { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); }
+.poll q { font-weight: 600; quotes: "«" "»"; }
+.poll .ans { display: flex; flex-wrap: wrap; gap: 4px; }
+.poll .ans span { font-size: .78rem; border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; color: var(--muted); }
+.poll .by { font-size: .78rem; color: var(--muted); }
+.quotes { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.quote { margin: 0; padding: 14px 16px; border-radius: 12px; background: var(--wing-soft); display: flex; flex-direction: column; gap: 8px; }
+.quote p { font-size: 1.05rem; white-space: pre-line; overflow-wrap: anywhere; }
+.quote footer { font-size: .8rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+
+/* досье */
+.picker { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.picker label { font-weight: 600; }
+.picker select { font: inherit; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); max-width: 100%; }
+.picker select:focus-visible, button:focus-visible { outline: 2px solid var(--wing); outline-offset: 2px; }
+.dossier { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+.dossier .top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 20px; }
+.dossier .top h3 { font-size: clamp(1.3rem, 4vw, 1.9rem); overflow-wrap: anywhere; }
+.dossier .rank { font-family: var(--mono); color: var(--rose); }
+.dgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px 18px; }
+.dgrid div { display: flex; flex-direction: column; gap: 0; }
+.dgrid b { font-family: var(--mono); font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.dgrid span { color: var(--muted); font-size: .8rem; }
+.dossier .words { display: flex; flex-direction: column; gap: 6px; }
+
+footer.method { color: var(--muted); font-size: .82rem; display: flex; flex-direction: column; gap: 6px; max-width: 75ch; border-top: 1px solid var(--line); padding-top: 18px; }
+@media (prefers-reduced-motion: no-preference) {
+  .row .fill { transition: width .6s ease; }
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Летопись чата · 28.03.2024 — 26.10.2026</div>
+    <div class="runes">ᛖᛋᚺᛜᛋᛠⰓᛁ Live p.2</div>
+    <p class="sub" id="heroSub"></p>
+    <div class="facts" id="facts"></div>
+  </header>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Жизнь чата</div>
+      <h2>Взлёт, клиническая смерть и воскрешение</h2>
+      <p class="lead">Сообщения по месяцам. Розовым отмечен рекордный месяц.</p>
+    </div>
+    <div class="chart" id="monthly"></div>
+    <div class="eras" id="eras"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Лидеры</div>
+      <h2>Кто больше всех пишет</h2>
+      <p class="lead" id="boardLead"></p>
+    </div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Номинации</div>
+      <h2>Премия чата</h2>
+      <p class="lead">Доли и средние считаются только для тех, у кого больше 1000 сообщений, иначе побеждал бы человек с тремя сообщениями. Под победителем — второе и третье места.</p>
+    </div>
+    <div class="awards" id="awards"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Ссоры и наезды</div>
+      <h2 id="fightsTitle">Кто начинает срач</h2>
+      <p class="lead">Ссорой считается кусок переписки, где за 15 минут прозвучало минимум 4 наезда от двух и более людей. Зачинщик — автор первого наезда.</p>
+    </div>
+    <div class="split">
+      <div><h3>Зачинщики ссор</h3><div class="board" id="fStarters"></div></div>
+      <div><h3>Чаще всех в гуще ссор</h3><div class="board" id="fPart"></div></div>
+    </div>
+    <div class="split">
+      <div><h3>Самые резкие</h3><p class="lead">Наездов на 1000 сообщений</p><div class="board" id="fAggr"></div></div>
+      <div><h3>Главные мишени</h3><p class="lead">Сколько наездов получили в ответ на свои сообщения</p><div class="board" id="fRecv"></div></div>
+    </div>
+    <div class="split">
+      <div><h3>Вечные соперники</h3><p class="lead">Пары с наибольшим числом наездов друг на друга</p><div class="board" id="fPairs"></div></div>
+      <div class="panel"><h3>Самые большие срачи</h3><div id="fBig"></div></div>
+    </div>
+    <p class="caveat">Это подсчёт по словарю наездов: «заткнись», «бред», «ты не прав», «иди нах», оскорбления и т.п. Робот не понимает сарказма и дружеских подколов, так что «ссора» тут — скорее громкий движ, чем настоящая ругань.</p>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Связи</div>
+      <h2>Кто с кем разговаривает</h2>
+      <p class="lead">Считаются ответы (reply) друг другу в обе стороны.</p>
+    </div>
+    <div class="split">
+      <div><h3>Главные дуэты</h3><div class="board" id="pairs"></div></div>
+      <div><h3>Кто кому отвечает</h3><div class="board" id="pairsDir"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Словарь</div>
+      <h2>О чём здесь говорят</h2>
+      <p class="lead" id="wordsLead"></p>
+    </div>
+    <div class="panel"><h3>Топ слов</h3><div class="chips" id="words" style="margin-top:12px"></div></div>
+    <div class="split">
+      <div class="panel"><h3>Топ мата (цензура наша)</h3><div class="chips" id="mat" style="margin-top:12px"></div></div>
+      <div class="panel"><h3>Топ эмодзи</h3><div class="emojis" id="emoji" style="margin-top:12px"></div></div>
+    </div>
+    <div><h3>Слова года</h3><div class="years" id="years" style="margin-top:12px"></div></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Ритм</div>
+      <h2>Когда чат не спит</h2>
+      <p class="lead" id="hoursLead"></p>
+    </div>
+    <div>
+      <div class="hours" id="hours"></div>
+      <div class="hlabels" id="hlabels"></div>
+    </div>
+    <div class="board" id="weekdays"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Рекорды</div>
+      <h2>Книга рекордов</h2>
+    </div>
+    <div class="records" id="records"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Цитаты</div>
+      <h2>Сообщения, которые собрали больше всего реакций</h2>
+    </div>
+    <div class="quotes" id="quotes"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <div class="eyebrow">Демократия</div>
+      <h2>Опросы чата</h2>
+    </div>
+    <div class="polls" id="polls"></div>
+  </section>
+
+  <section id="dossier-section">
+    <div class="head">
+      <div class="eyebrow">Досье</div>
+      <h2>Карточка участника</h2>
+      <p class="lead">Выбери человека — всё про его жизнь в чате.</p>
+    </div>
+    <div class="picker">
+      <label for="who">Участник</label>
+      <select id="who"></select>
+    </div>
+    <div class="dossier" id="dossier"></div>
+  </section>
+
+  <footer class="method">
+    <p>Посчитано по полной истории чата: все сообщения с 28.03.2024 по 26.10.2026. Время — московское (UTC+3). Удалённые сообщения в статистику не попали.</p>
+    <p>Участники определяются по аккаунту, имя — текущее. У удалённых аккаунтов имя не сохранилось, поэтому они пронумерованы.</p>
+    <p>«Смех» — ахах, хаха, хвхв, лол, ору и смеющиеся эмодзи. «Заводила» — первый, кто написал после 2+ часов тишины. «Убийца разговоров» — последний перед такой тишиной.</p>
+  </footer>
+</div>
+
+<script>
+const S = {"generated": "2026-10-26T19:09", "overview": {"messages": 191511, "people_total": 85, "main_cast": 40, "first": "28.03.2024", "last": "26.10.2026", "days_span": 943, "active_days": 805, "avg_per_active_day": 238, "words": 498100, "voice": 4765, "video_note": 9764, "photo": 4297, "video": 950, "stickers": 1541, "polls": 27, "replies": 39926, "edited": 14687, "forwarded": 1786, "group_calls": 26, "title_changes": 6, "pins": 136, "record_day": ["08.04.2024", 2877], "record_hour": ["30.03.2024", 0, 874], "longest_silence": {"days": 27, "from": "02.06.2025", "to": "30.06.2025", "broke": "Vlad Lebedev"}}, "monthly": [["2024-03", 9087], ["2024-04", 37704], ["2024-05", 17350], ["2024-06", 14402], ["2024-07", 21425], ["2024-08", 14459], ["2024-09", 11566], ["2024-10", 9253], ["2024-11", 4605], ["2024-12", 3970], ["2025-01", 1507], ["2025-02", 203], ["2025-03", 31], ["2025-04", 134], ["2025-05", 11], ["2025-06", 20], ["2025-07", 211], ["2025-08", 1059], ["2025-09", 1439], ["2025-10", 972], ["2025-11", 4066], ["2025-12", 6196], ["2026-01", 5164], ["2026-02", 9157], ["2026-03", 4663], ["2026-04", 3282], ["2026-05", 2057], ["2026-06", 1773], ["2026-07", 1633], ["2026-08", 1759], ["2026-09", 1173], ["2026-10", 1180]], "monthly_top": {"2024-03": ["Лиса", 1775], "2024-04": ["Лиса", 5554], "2024-05": ["Лиса", 3097], "2024-06": ["Вишня", 2391], "2024-07": ["Вишня", 3998], "2024-08": ["Вишня", 2923], "2024-09": ["Лиса", 2214], "2024-10": ["Вишня", 1638], "2024-11": ["Девятый", 1089], "2024-12": ["2 Рубля Был Должен", 834], "2025-01": ["Девятый", 292], "2025-02": ["Девятый", 33], "2025-03": ["Девятый", 10], "2025-04": ["Бамбусь", 53], "2025-05": ["Девятый", 5], "2025-06": ["Ezalor", 4], "2025-07": ["Девятый", 46], "2025-08": ["2 Рубля Был Должен", 213], "2025-09": ["Лучик", 232], "2025-10": ["Лиса", 209], "2025-11": ["Вишня", 1040], "2025-12": ["Вишня", 1545], "2026-01": ["Вишня", 1099], "2026-02": ["Вишня", 2211], "2026-03": ["Вишня", 1712], "2026-04": ["Вишня", 1087], "2026-05": ["Вишня", 743], "2026-06": ["Вишня", 507], "2026-07": ["Вишня", 601], "2026-08": ["Вишня", 646], "2026-09": ["Вишня", 350], "2026-10": ["Вишня", 351]}, "by_hour": [13054, 7931, 4401, 1695, 403, 173, 712, 2634, 3782, 4152, 6247, 8844, 9665, 10972, 12056, 11051, 11286, 11241, 9282, 10634, 12766, 10951, 13221, 14358], "by_weekday": [30779, 25167, 23535, 25792, 30098, 27507, 28633], "top_days": [["08.04.2024", 2877], ["29.03.2024", 2827], ["30.03.2024", 2445], ["12.04.2024", 2398], ["05.04.2024", 2190], ["28.03.2024", 2149], ["04.04.2024", 2131], ["13.07.2024", 1980], ["07.04.2024", 1875], ["25.04.2024", 1854]], "top_words": [["нету", 857], ["дома", 704], ["реально", 683], ["ладно", 630], ["саня", 611], ["даник", 580], ["пока", 514], ["иди", 506], ["домой", 500], ["скоро", 494], ["спасибо", 491], ["кого", 481], ["день", 454], ["ужас", 452], ["давай", 448], ["такое", 412], ["улице", 392], ["красава", 391], ["дай", 389], ["минойты", 387], ["чирик", 386], ["базар", 374], ["беседке", 370], ["минойтах", 367], ["делать", 363], ["либо", 352], ["нам", 346], ["спать", 339], ["чисто", 331], ["норм", 330], ["думаю", 328], ["дуба", 314], ["думал", 312], ["лиде", 307], ["даун", 301], ["точно", 299], ["хули", 297], ["сразу", 293], ["тамира", 292], ["пол", 290], ["добра", 289], ["ток", 287], ["дайте", 278], ["кому", 277], ["хотя", 266], ["попарить", 264], ["лох", 263], ["минут", 262], ["видел", 261], ["говорил", 259], ["пошли", 253], ["лиду", 252], ["братва", 251], ["хахаха", 249], ["днем", 247], ["улицу", 241], ["еду", 234], ["ясно", 232], ["брат", 230], ["хахахаха", 230]], "top_mat": [["б***ь", 1736], ["н***й", 1353], ["п***а", 1305], ["с**а", 1199], ["п****ц", 1107], ["б*я", 1085], ["е***ь", 968], ["п***й", 832], ["х***я", 726], ["х*й", 700], ["н***я", 534], ["е**л", 393], ["е***н", 371], ["н***я", 284], ["д*****б", 261]], "top_emoji": [["☠", 2600], ["😅", 830], ["😂", 784], ["😭", 690], ["🥰", 512], ["😹", 456], ["😍", 421], ["🤔", 224], ["🙄", 220], ["🤣", 197], ["❌", 163], ["😈", 158], ["😘", 146], ["🤫", 139], ["💋", 134], ["🥵", 132], ["🔥", 130], ["👍", 129], ["🐷", 123], ["🤙", 104]], "top_pairs": [["Лиса", "2 Рубля Был Должен", 1411], ["Вишня", "Девятый", 1376], ["Вишня", "2 Рубля Был Должен", 1301], ["Девятый", "Лиса", 1016], ["Вишня", "Лиса", 1005], ["Лиса", "👄", 868], ["Девятый", "2 Рубля Был Должен", 832], ["👄", "2 Рубля Был Должен", 612], ["Вишня", "👄", 538], ["Вишня", "Vlad Lebedev", 513], ["Девятый", "Лучик", 452], ["настёна ноутоксик 喵:3", "2 Рубля Был Должен", 436]], "top_reply_directed": [["Лиса", "2 Рубля Был Должен", 812], ["Вишня", "Девятый", 763], ["Вишня", "2 Рубля Был Должен", 698], ["Лиса", "Девятый", 641], ["Девятый", "Вишня", 613], ["2 Рубля Был Должен", "Вишня", 603], ["2 Рубля Был Должен", "Лиса", 599], ["Лиса", "Вишня", 575], ["👄", "Лиса", 456], ["Вишня", "Лиса", 430], ["2 Рубля Был Должен", "Девятый", 421], ["Лиса", "👄", 412]], "longest_monologue": {"n": 271, "who": "Вишня", "date": "17.08.2024"}, "fights": {"episodes": 178, "biggest": [{"date": "29.03.2024 23:49", "starter": 2131803281, "starter_name": "лизочка", "who": ["Лиса", "Девятый", "2 Рубля Был Должен", "лизочка"], "hits": 68, "msgs": 1648, "minutes": 113}, {"date": "05.04.2024 22:19", "starter": 5566643980, "starter_name": "Удалённый аккаунт №1", "who": ["Лиса", "Удалённый аккаунт №1", "Удалённый аккаунт №3", "Удалённый аккаунт №4"], "hits": 61, "msgs": 1409, "minutes": 120}, {"date": "29.03.2024 01:38", "starter": 983464579, "starter_name": "Лиса", "who": ["Лиса", "2 Рубля Был Должен", "Удалённый аккаунт №1", "👄"], "hits": 47, "msgs": 1060, "minutes": 103}, {"date": "07.04.2024 21:48", "starter": 800419740, "starter_name": "Девятый", "who": ["Удалённый аккаунт №1", "“dev’eloper”", "Девятый", "Лиса"], "hits": 43, "msgs": 833, "minutes": 71}, {"date": "04.04.2024 07:42", "starter": 800419740, "starter_name": "Девятый", "who": ["Лиса", "Девятый", "Удалённый аккаунт №1", "я Алина"], "hits": 36, "msgs": 551, "minutes": 67}, {"date": "25.04.2024 00:45", "starter": 5566643980, "starter_name": "Удалённый аккаунт №1", "who": ["Лиса", "Удалённый аккаунт №1", "Вишня"], "hits": 36, "msgs": 391, "minutes": 34}, {"date": "01.09.2024 03:03", "starter": 6428972483, "starter_name": "2 Рубля Был Должен", "who": ["Лиса", "Девятый", "2 Рубля Был Должен", "Саша Гринцевич"], "hits": 34, "msgs": 342, "minutes": 53}, {"date": "28.03.2024 21:54", "starter": 983464579, "starter_name": "Лиса", "who": ["Удалённый аккаунт №3", "Девятый", "Лиса", "лизочка"], "hits": 30, "msgs": 576, "minutes": 62}], "starters": [["Лиса", 43], ["2 Рубля Был Должен", 29], ["Девятый", 22], ["Удалённый аккаунт №1", 9], ["Вишня", 9], ["Бамбусь", 8], ["👄", 7], ["люся🐾", 6], ["Лучик", 5], ["Vlad Lebedev", 5]], "participants": [["Лиса", 113], ["2 Рубля Был Должен", 71], ["Девятый", 59], ["Вишня", 35], ["👄", 28], ["Бамбусь", 27], ["Удалённый аккаунт №1", 24], ["Лучик", 17], ["лизочка", 16], ["Чирик", 15]], "pairs": [["Лиса", "2 Рубля Был Должен", 54], ["Девятый", "Лиса", 46], ["Вишня", "Лиса", 30], ["Лиса", "👄", 29], ["Лиса", "Чирик", 29], ["Лиса", "Бамбусь", 26], ["Девятый", "лизочка", 20], ["Девятый", "2 Рубля Был Должен", 19], ["Вишня", "Девятый", 18], ["Вишня", "2 Рубля Был Должен", 17]], "by_year": [["2024", 155], ["2025", 6], ["2026", 17]]}, "top_reacted": [{"who": "Вишня", "date": "28.10.2024", "text": "Увидимся в 2025 друзьяшки \nВсе все пока 👋☠️☠️🎉🎉👍🍓🍓", "r": 13}, {"who": "Лучик", "date": "21.04.2024", "text": "Чтобы Саша поучаствовала", "r": 9}, {"who": "2 Рубля Был Должен", "date": "31.03.2024", "text": "я тебе колени прострелю", "r": 8}, {"who": "Вишня", "date": "10.09.2024", "text": "Всем кому я должен — я прощаю", "r": 8}, {"who": "Удалённый аккаунт №4", "date": "07.04.2024", "text": "доброжелательный 😍", "r": 7}, {"who": "Удалённый аккаунт №5", "date": "28.04.2024", "text": "Не понравилось", "r": 7}, {"who": "👄", "date": "02.04.2024", "text": "Это вообще пиздец", "r": 6}, {"who": "👄", "date": "02.04.2024", "text": "Бедный", "r": 6}, {"who": "2 Рубля Был Должен", "date": "05.04.2024", "text": "если блок то значит повод", "r": 6}, {"who": "Леша", "date": "27.02.2025", "text": "11:11", "r": 6}, {"who": "Максим", "date": "29.03.2024", "text": "Я ставлю цяпу на девятого", "r": 5}, {"who": "я Алина", "date": "30.03.2024", "text": "сука, вы закроете когда-нибудь свои рты и перестанете сраться, сначала на Лизу с тамирой гнали, теперь закрыли тему и перешли на Надю", "r": 5}], "top_reacted_media": [["2 Рубля Был Должен", 5], ["Vlad Lebedev", 4], ["Лиса", 2], ["еромка", 2], ["Эвелина", 1]], "polls": [{"who": "Vlad Lebedev", "date": "28.03.2024", "q": "Че делаем?", "a": ["Добавляем как можно больше", "Только минойты"]}, {"who": "Удалённый аккаунт №2", "date": "28.03.2024", "q": "Добавляем всех сюда для разгона?", "a": ["Yes", "No"]}, {"who": "Удалённый аккаунт №2", "date": "29.03.2024", "q": "Кикаем Захара?", "a": ["Да", "Нет"]}, {"who": "Лиса", "date": "30.03.2024", "q": "кик надю", "a": ["да", "нет"]}, {"who": "Лучик", "date": "30.03.2024", "q": "Кик Лизу", "a": ["Да", "Нет"]}, {"who": "Лиса", "date": "04.04.2024", "q": "леша скидывает ножки?", "a": ["да", "нет"]}, {"who": "Удалённый аккаунт №2", "date": "08.04.2024", "q": "Ехать сегодня в минойты?", "a": ["Да", "Нет"]}, {"who": "Вишня", "date": "08.04.2024", "q": "Баним афк ?? ☠️☠️☠️😨😨😨", "a": ["Да , разгрузимся трохи", "Нет, пускай висят , не мешают", "Похуй"]}, {"who": "Вишня", "date": "09.04.2024", "q": "Делаем сегодня ?", "a": ["Да", "Да", "Отдай бобру"]}, {"who": "Лиса", "date": "23.04.2024", "q": "делаем выходные на 6 дней?", "a": ["да", "нет"]}, {"who": "Удалённый аккаунт №8", "date": "11.06.2024", "q": "2+5=", "a": ["6", "8", "я ебу?"]}, {"who": "Vlad Lebedev", "date": "06.08.2024", "q": "Кто едет", "a": ["Поеду на неман", "Не поеду", "Я лох, меня не возьмут"]}, {"who": "ВладоSiiiUUUк", "date": "06.08.2024", "q": "Кто с кем", "a": ["Мазда", "Опель"]}, {"who": "Вишня", "date": "12.08.2024", "q": "Дни трезвости — пора?", "a": ["Да , скок пить можно", "Пох, Бухаем дальше", "🖕"]}, {"who": "Лучик", "date": "22.08.2024", "q": "Вопрос вечера", "a": ["Эвелина даст данику шлифануть", "Эвелина в любом случае даст данику шлифануть"]}, {"who": "Вишня", "date": "08.10.2024", "q": "yep.09", "a": ["9", "666.", "///", "9-9", "9,6,9"]}, {"who": "Селевич", "date": "07.12.2024", "q": "Когда бы вы хотели сыграть последнюю квалификацию?", "a": ["В субботу, 14 мск", "В воскресенье, в 12 мск"]}, {"who": "Девятый", "date": "11.12.2024", "q": "кто в минойтах на нг будет скидываться на пьянку?", "a": ["я", "не я"]}, {"who": "Лиса", "date": "19.11.2025", "q": "Голосуем за наиболее понравившийся видеоролик учащихся Слонимского медколледжа к Международному дню студента \"Один день из жизни\"", "a": ["1ЛБ-1", "1ЛБ-2", "1СБ-1", "1СБ-2", "2ЛБ-1", "2ЛБ-2", "2СД-1", "3ЛБ-1", "3ЛБ-2", "3ЛД-2", "3СД-2"]}, {"who": "Дуб", "date": "29.12.2025", "q": "Кто голый на нг", "a": ["Я", "Пидор"]}, {"who": "Vlad Lebedev", "date": "31.12.2025", "q": "Скажет ли батька, что год был тяжелый", "a": ["Да", "Нет"]}, {"who": "Вишня", "date": "05.03.2026", "q": "👑МИСС ВЕСНА - 2026👑", "a": ["1. Байбокайте Патриция", "2. Микулко Полина", "3.Недведь Варвара", "4. Лясота Полина", "5.Назина София", "6.Кривеня Ульяна", "7.Дьяк Алёна", "8.Чиркова Глафира", "9.Шавлюк Марта", "10. Смоляк Яна"]}, {"who": "Девятый", "date": "23.03.2026", "q": "кто падла группы", "a": ["я", "саня жижма", "никита воздух", "егор крип", "жонка воздуха", "дуб", "чупас", "алексей щелконогау", "алина", "леша сидор", "леша 9", "владик птица"]}, {"who": "Девятый", "date": "23.03.2026", "q": "падла группы", "a": ["владик бобер", "уголь"]}, {"who": "Чирик", "date": "03.10.2026", "q": "Кто фраер и держит минойты", "a": ["Дуб", "Чирик", "я", "Давид"]}], "leaves": [["Вишня", 27], ["2 Рубля Был Должен", 24], ["настёна ноутоксик 喵:3", 10], ["Лиса", 5], ["Девятый", 5], ["Удалённый аккаунт №1", 4], ["Vlad Lebedev", 4], ["Чирик", 4], ["лизочка", 3], ["👄", 3]], "adds": [["Вишня", 18], ["Девятый", 11], ["Vlad Lebedev", 11], ["2 Рубля Был Должен", 11], ["Лиса", 7], ["Удалённый аккаунт №3", 4], ["Ezalor", 4], ["Сидор", 3]], "title_changers": [["Вишня", 5], ["Чирик", 1]], "pinners": [["настёна ноутоксик 喵:3", 27], ["Лиса", 22], ["Вишня", 22], ["2 Рубля Был Должен", 11], ["Ezalor", 10]], "records": {"longest_msg": {"who": "Удалённый аккаунт №3", "chars": 4096, "date": "14.04.2024"}, "longest_voice": ["2 Рубля Был Должен", 197, "02.01.2025"], "longest_laugh": ["Удалённый аккаунт №3", 82, "05.04.2024"], "person_day": ["Лиса", "29.03.2024", 805]}, "words_by_year": {"2024": ["нету", "даник", "дома", "реально", "ладно", "иди", "ужас", "саня", "спасибо", "давай", "красава", "домой", "кого", "скоро", "дай"], "2025": ["нету", "ладно", "дома", "пока", "реально", "делать", "хиба", "домой", "год", "точно", "улицу", "думаю", "день", "скоро", "саня"], "2026": ["нету", "дуба", "саня", "пока", "дома", "чисто", "реально", "день", "скоро", "кого", "домой", "спасибо", "брат", "ладно", "лиде"]}, "people": [{"name": "Вишня", "n": 30629, "share": 16.0, "words": 89498, "avg_len": 18.1, "avg_words": 3.3, "one_word_pct": 22.4, "mat": 2788, "mat_per100": 9.1, "laugh_pct": 2.5, "laugh": 766, "q_pct": 3.5, "caps": 55, "love": 170, "thanks": 90, "sorry": 19, "agree": 278, "emoji": 6892, "fav_emoji": [["☠", 2210], ["😅", 795], ["😹", 437]], "voice": 168, "voice_min": 31, "circles": 1558, "circle_min": 270, "photo": 1347, "video": 182, "sticker": 157, "edited_pct": 6.9, "forwarded": 549, "replies_sent": 4626, "reactions": 1729, "react_per100": 5.6, "night_pct": 10.0, "morning_pct": 2.5, "weekend_pct": 30.6, "peak_hour": 14, "active_days": 550, "record_day": ["13.07.2024", 581], "first": "05.04.2024", "last": "26.10.2026", "signature": [["сег", 25], ["принцессой", 22], ["лучки", 27], ["пздц", 73], ["принцесса", 62], ["мес", 45], ["родненькая", 27], ["натахой", 25]], "fav_word": "дуба", "replied_to": 4383, "got_reply_pct": 12.6, "reply_latency_min": 2.2, "best_buddy": "Девятый", "starter": 287, "killer": 281, "starter_per1k": 9.4, "killer_per1k": 9.2, "max_run": 271, "aggr": 246, "aggr_per1k": 8.0, "aggr_recv": 73, "fights_started": 9, "fights_in": 35, "mentioned": 246}, {"name": "Лиса", "n": 28205, "share": 14.7, "words": 58646, "avg_len": 12.8, "avg_words": 2.4, "one_word_pct": 33.3, "mat": 4133, "mat_per100": 14.7, "laugh_pct": 2.7, "laugh": 769, "q_pct": 3.4, "caps": 142, "love": 16, "thanks": 57, "sorry": 23, "agree": 473, "emoji": 718, "fav_emoji": [["😱", 62], ["😭", 59], ["🤫", 45]], "voice": 1218, "voice_min": 84, "circles": 1451, "circle_min": 186, "photo": 490, "video": 90, "sticker": 84, "edited_pct": 6.4, "forwarded": 352, "replies_sent": 5697, "reactions": 1636, "react_per100": 5.8, "night_pct": 17.2, "morning_pct": 5.1, "weekend_pct": 25.5, "peak_hour": 23, "active_days": 451, "record_day": ["29.03.2024", 805], "first": "28.03.2024", "last": "28.03.2026", "signature": [["рял", 38], ["бебрык", 45], ["ландыша", 26], ["бебрыка", 21], ["мусиць", 23], ["матус", 18], ["гондон", 24], ["урод", 36]], "fav_word": "реально", "replied_to": 4325, "got_reply_pct": 13.4, "reply_latency_min": 0.3, "best_buddy": "2 Рубля Был Должен", "starter": 91, "killer": 108, "starter_per1k": 3.2, "killer_per1k": 3.8, "max_run": 36, "aggr": 1239, "aggr_per1k": 43.9, "aggr_recv": 128, "fights_started": 43, "fights_in": 113, "mentioned": 37}, {"name": "Девятый", "n": 26177, "share": 13.7, "words": 66486, "avg_len": 14.6, "avg_words": 2.8, "one_word_pct": 23.6, "mat": 3729, "mat_per100": 14.2, "laugh_pct": 1.0, "laugh": 251, "q_pct": 5.0, "caps": 11, "love": 41, "thanks": 52, "sorry": 24, "agree": 331, "emoji": 538, "fav_emoji": [["🎉", 20], ["😈", 17], ["🤟", 15]], "voice": 321, "voice_min": 56, "circles": 1454, "circle_min": 297, "photo": 279, "video": 45, "sticker": 177, "edited_pct": 8.7, "forwarded": 130, "replies_sent": 3866, "reactions": 1691, "react_per100": 6.5, "night_pct": 7.2, "morning_pct": 5.1, "weekend_pct": 29.0, "peak_hour": 16, "active_days": 736, "record_day": ["04.04.2024", 409], "first": "28.03.2024", "last": "26.10.2026", "signature": [["ящэ", 17], ["пакурыть", 40], ["пасмалить", 39], ["бэбрыка", 28], ["смалить", 22], ["курва", 18], ["хуле", 27], ["рэбау", 16]], "fav_word": "нету", "replied_to": 4232, "got_reply_pct": 14.3, "reply_latency_min": 1.1, "best_buddy": "Вишня", "starter": 422, "killer": 354, "starter_per1k": 16.1, "killer_per1k": 13.5, "max_run": 28, "aggr": 631, "aggr_per1k": 24.1, "aggr_recv": 104, "fights_started": 22, "fights_in": 59, "mentioned": 60}, {"name": "2 Рубля Был Должен", "n": 21892, "share": 11.4, "words": 46700, "avg_len": 14.0, "avg_words": 2.5, "one_word_pct": 33.6, "mat": 2729, "mat_per100": 12.5, "laugh_pct": 2.2, "laugh": 477, "q_pct": 4.8, "caps": 511, "love": 35, "thanks": 44, "sorry": 32, "agree": 350, "emoji": 878, "fav_emoji": [["☠", 158], ["🤔", 121], ["🥵", 85]], "voice": 921, "voice_min": 167, "circles": 1947, "circle_min": 323, "photo": 378, "video": 103, "sticker": 316, "edited_pct": 7.6, "forwarded": 130, "replies_sent": 4509, "reactions": 1734, "react_per100": 7.9, "night_pct": 15.7, "morning_pct": 5.2, "weekend_pct": 30.1, "peak_hour": 23, "active_days": 410, "record_day": ["30.03.2024", 531], "first": "28.03.2024", "last": "18.04.2026", "signature": [["далбоеб", 31], ["чашечки", 14], ["коленные", 14], ["кажеться", 14], ["анлак", 58], ["бефан", 17], ["рэу", 11], ["падлу", 23]], "fav_word": "красава", "replied_to": 5038, "got_reply_pct": 19.4, "reply_latency_min": 0.5, "best_buddy": "Вишня", "starter": 162, "killer": 125, "starter_per1k": 7.4, "killer_per1k": 5.7, "max_run": 31, "aggr": 522, "aggr_per1k": 23.8, "aggr_recv": 122, "fights_started": 29, "fights_in": 71, "mentioned": 0}, {"name": "Лучик", "n": 8709, "share": 4.5, "words": 19781, "avg_len": 13.5, "avg_words": 2.6, "one_word_pct": 31.4, "mat": 1145, "mat_per100": 13.1, "laugh_pct": 3.1, "laugh": 266, "q_pct": 3.2, "caps": 2, "love": 3, "thanks": 12, "sorry": 14, "agree": 118, "emoji": 104, "fav_emoji": [["🥵", 15], ["🚬", 12], ["😶", 9]], "voice": 291, "voice_min": 41, "circles": 604, "circle_min": 140, "photo": 111, "video": 16, "sticker": 29, "edited_pct": 6.8, "forwarded": 79, "replies_sent": 1215, "reactions": 474, "react_per100": 5.4, "night_pct": 17.3, "morning_pct": 3.5, "weekend_pct": 31.1, "peak_hour": 23, "active_days": 587, "record_day": ["18.11.2025", 131], "first": "28.03.2024", "last": "25.10.2026", "signature": [["ваобще", 22], ["некто", 8], ["захаххаха", 8], ["небыло", 6], ["пошол", 8], ["незнаю", 9], ["некогда", 6], ["счас", 80]], "fav_word": "счас", "replied_to": 1414, "got_reply_pct": 14.4, "reply_latency_min": 2.1, "best_buddy": "Девятый", "starter": 114, "killer": 152, "starter_per1k": 13.1, "killer_per1k": 17.5, "max_run": 22, "aggr": 155, "aggr_per1k": 17.8, "aggr_recv": 42, "fights_started": 5, "fights_in": 17, "mentioned": 2}, {"name": "Удалённый аккаунт №1", "n": 6229, "share": 3.3, "words": 12325, "avg_len": 10.8, "avg_words": 2.2, "one_word_pct": 44.2, "mat": 673, "mat_per100": 10.8, "laugh_pct": 1.7, "laugh": 107, "q_pct": 0.8, "caps": 3, "love": 8, "thanks": 1, "sorry": 4, "agree": 85, "emoji": 532, "fav_emoji": [["😂", 207], ["🐷", 112], ["😭", 107]], "voice": 75, "voice_min": 5, "circles": 282, "circle_min": 54, "photo": 50, "video": 57, "sticker": 88, "edited_pct": 2.1, "forwarded": 4, "replies_sent": 431, "reactions": 121, "react_per100": 1.9, "night_pct": 29.9, "morning_pct": 1.9, "weekend_pct": 29.5, "peak_hour": 1, "active_days": 43, "record_day": ["25.04.2024", 545], "first": "28.03.2024", "last": "09.07.2024", "signature": [["стати", 14], ["сантроп", 12], ["вабще", 12], ["ани", 10], ["ана", 9], ["чпок", 8], ["патом", 33], ["сматри", 7]], "fav_word": "даник", "replied_to": 1050, "got_reply_pct": 13.2, "reply_latency_min": 0.3, "best_buddy": "Лиса", "starter": 3, "killer": 3, "starter_per1k": 0.5, "killer_per1k": 0.5, "max_run": 31, "aggr": 145, "aggr_per1k": 23.3, "aggr_recv": 38, "fights_started": 9, "fights_in": 24, "mentioned": 0}, {"name": "👄", "n": 6172, "share": 3.2, "words": 14035, "avg_len": 13.9, "avg_words": 2.5, "one_word_pct": 40.5, "mat": 610, "mat_per100": 9.9, "laugh_pct": 10.0, "laugh": 618, "q_pct": 4.0, "caps": 167, "love": 18, "thanks": 28, "sorry": 6, "agree": 166, "emoji": 572, "fav_emoji": [["🙄", 135], ["😭", 83], ["😨", 47]], "voice": 457, "voice_min": 55, "circles": 58, "circle_min": 8, "photo": 98, "video": 8, "sticker": 0, "edited_pct": 8.8, "forwarded": 31, "replies_sent": 2128, "reactions": 571, "react_per100": 9.3, "night_pct": 34.7, "morning_pct": 1.2, "weekend_pct": 23.7, "peak_hour": 0, "active_days": 165, "record_day": ["08.04.2024", 372], "first": "28.03.2024", "last": "08.10.2024", "signature": [["ужааас", 6], ["ужаааас", 6], ["кошмар", 18], ["встала", 10], ["ужас", 260], ["наташа", 17], ["блчть", 8], ["мирослав", 6]], "fav_word": "ужас", "replied_to": 1854, "got_reply_pct": 24.1, "reply_latency_min": 0.3, "best_buddy": "Лиса", "starter": 4, "killer": 14, "starter_per1k": 0.6, "killer_per1k": 2.3, "max_run": 11, "aggr": 127, "aggr_per1k": 20.6, "aggr_recv": 42, "fights_started": 7, "fights_in": 28, "mentioned": 0}, {"name": "Vlad Lebedev", "n": 5821, "share": 3.0, "words": 18343, "avg_len": 20.7, "avg_words": 3.5, "one_word_pct": 21.2, "mat": 642, "mat_per100": 11.0, "laugh_pct": 2.4, "laugh": 142, "q_pct": 4.0, "caps": 5, "love": 10, "thanks": 6, "sorry": 8, "agree": 76, "emoji": 99, "fav_emoji": [["☠", 29], ["☝", 10], ["😭", 6]], "voice": 210, "voice_min": 38, "circles": 76, "circle_min": 18, "photo": 203, "video": 94, "sticker": 17, "edited_pct": 7.0, "forwarded": 77, "replies_sent": 1201, "reactions": 431, "react_per100": 7.4, "night_pct": 13.2, "morning_pct": 2.3, "weekend_pct": 29.7, "peak_hour": 12, "active_days": 435, "record_day": ["06.08.2024", 111], "first": "28.03.2024", "last": "24.10.2026", "signature": [["дeнь", 43], ["dаy", 23], ["cшa", 8], ["мeждунapoдный", 7], ["international", 7], ["nаtiоnаl", 6], ["пепе", 8], ["сча", 29]], "fav_word": "дeнь", "replied_to": 1249, "got_reply_pct": 17.8, "reply_latency_min": 0.9, "best_buddy": "Вишня", "starter": 79, "killer": 49, "starter_per1k": 13.6, "killer_per1k": 8.4, "max_run": 15, "aggr": 99, "aggr_per1k": 17.0, "aggr_recv": 25, "fights_started": 5, "fights_in": 14, "mentioned": 160}, {"name": "ВладоSiiiUUUк", "n": 4749, "share": 2.5, "words": 12629, "avg_len": 15.9, "avg_words": 2.8, "one_word_pct": 25.9, "mat": 625, "mat_per100": 13.2, "laugh_pct": 5.2, "laugh": 246, "q_pct": 11.3, "caps": 23, "love": 4, "thanks": 9, "sorry": 7, "agree": 69, "emoji": 122, "fav_emoji": [["➡", 18], ["😘", 12], ["👍", 11]], "voice": 21, "voice_min": 4, "circles": 187, "circle_min": 43, "photo": 59, "video": 6, "sticker": 10, "edited_pct": 8.4, "forwarded": 35, "replies_sent": 744, "reactions": 377, "react_per100": 7.9, "night_pct": 9.9, "morning_pct": 3.2, "weekend_pct": 29.0, "peak_hour": 19, "active_days": 354, "record_day": ["08.04.2024", 220], "first": "28.03.2024", "last": "24.10.2026", "signature": [["рэля", 11], ["толково", 6], ["мэйби", 6], ["добриго", 8], ["интересного", 7], ["воу", 7], ["риля", 17], ["владосом", 8]], "fav_word": "реально", "replied_to": 916, "got_reply_pct": 16.9, "reply_latency_min": 1.4, "best_buddy": "Вишня", "starter": 61, "killer": 57, "starter_per1k": 12.8, "killer_per1k": 12.0, "max_run": 14, "aggr": 68, "aggr_per1k": 14.3, "aggr_recv": 11, "fights_started": 4, "fights_in": 8, "mentioned": 42}, {"name": "настёна ноутоксик 喵:3", "n": 4360, "share": 2.3, "words": 10181, "avg_len": 13.9, "avg_words": 2.5, "one_word_pct": 30.1, "mat": 636, "mat_per100": 14.6, "laugh_pct": 5.8, "laugh": 253, "q_pct": 4.7, "caps": 344, "love": 11, "thanks": 27, "sorry": 3, "agree": 42, "emoji": 319, "fav_emoji": [["😳", 35], ["💔", 31], ["🏻", 16]], "voice": 79, "voice_min": 23, "circles": 86, "circle_min": 16, "photo": 64, "video": 38, "sticker": 106, "edited_pct": 7.3, "forwarded": 52, "replies_sent": 1223, "reactions": 322, "react_per100": 7.4, "night_pct": 22.7, "morning_pct": 4.7, "weekend_pct": 27.0, "peak_hour": 0, "active_days": 241, "record_day": ["10.06.2024", 225], "first": "28.03.2024", "last": "27.08.2025", "signature": [["ептваю", 8], ["чувава", 6], ["чета", 7], ["ненада", 7], ["закрепы", 6], ["жесть", 8], ["душно", 7], ["епта", 47]], "fav_word": "хахахаха", "replied_to": 785, "got_reply_pct": 15.8, "reply_latency_min": 0.7, "best_buddy": "2 Рубля Был Должен", "starter": 10, "killer": 26, "starter_per1k": 2.3, "killer_per1k": 6.0, "max_run": 29, "aggr": 61, "aggr_per1k": 14.0, "aggr_recv": 8, "fights_started": 2, "fights_in": 8, "mentioned": 0}, {"name": "Бамбусь", "n": 3982, "share": 2.1, "words": 9936, "avg_len": 15.4, "avg_words": 2.8, "one_word_pct": 28.9, "mat": 704, "mat_per100": 17.7, "laugh_pct": 2.8, "laugh": 110, "q_pct": 1.3, "caps": 87, "love": 2, "thanks": 14, "sorry": 2, "agree": 72, "emoji": 70, "fav_emoji": [["✔", 17], ["😍", 10], ["🙄", 6]], "voice": 64, "voice_min": 13, "circles": 173, "circle_min": 35, "photo": 123, "video": 17, "sticker": 70, "edited_pct": 7.9, "forwarded": 36, "replies_sent": 683, "reactions": 258, "react_per100": 6.5, "night_pct": 3.5, "morning_pct": 4.4, "weekend_pct": 25.7, "peak_hour": 13, "active_days": 258, "record_day": ["29.08.2024", 147], "first": "28.03.2024", "last": "25.10.2026", "signature": [["позвоните", 6], ["дамой", 22], ["залить", 12], ["ишак", 7], ["собирается", 8], ["позвоню", 6], ["пидр", 6], ["гаи", 6]], "fav_word": "улице", "replied_to": 843, "got_reply_pct": 18.3, "reply_latency_min": 0.6, "best_buddy": "2 Рубля Был Должен", "starter": 22, "killer": 21, "starter_per1k": 5.5, "killer_per1k": 5.3, "max_run": 17, "aggr": 173, "aggr_per1k": 43.4, "aggr_recv": 41, "fights_started": 8, "fights_in": 27, "mentioned": 189}, {"name": "Удалённый аккаунт №2", "n": 3678, "share": 1.9, "words": 7865, "avg_len": 13.3, "avg_words": 2.6, "one_word_pct": 30.9, "mat": 269, "mat_per100": 7.3, "laugh_pct": 2.9, "laugh": 108, "q_pct": 14.1, "caps": 2, "love": 4, "thanks": 14, "sorry": 4, "agree": 51, "emoji": 56, "fav_emoji": [["😂", 25], ["😁", 13], ["😍", 3]], "voice": 188, "voice_min": 16, "circles": 288, "circle_min": 37, "photo": 76, "video": 34, "sticker": 7, "edited_pct": 5.8, "forwarded": 17, "replies_sent": 511, "reactions": 198, "react_per100": 5.4, "night_pct": 13.3, "morning_pct": 4.1, "weekend_pct": 37.1, "peak_hour": 21, "active_days": 241, "record_day": ["09.04.2024", 104], "first": "28.03.2024", "last": "18.02.2025", "signature": [["девятка", 10], ["сеголня", 7], ["некрофил", 7], ["сань", 6], ["лебедь", 6], ["пабг", 10], ["принял", 6], ["харош", 8]], "fav_word": "саня", "replied_to": 1022, "got_reply_pct": 23.1, "reply_latency_min": 1.5, "best_buddy": "Вишня", "starter": 30, "killer": 37, "starter_per1k": 8.2, "killer_per1k": 10.1, "max_run": 9, "aggr": 49, "aggr_per1k": 13.3, "aggr_recv": 32, "fights_started": 2, "fights_in": 6, "mentioned": 0}, {"name": "Дуб", "n": 3453, "share": 1.8, "words": 8098, "avg_len": 14.0, "avg_words": 2.7, "one_word_pct": 27.9, "mat": 248, "mat_per100": 7.2, "laugh_pct": 3.0, "laugh": 102, "q_pct": 8.6, "caps": 1, "love": 3, "thanks": 7, "sorry": 2, "agree": 56, "emoji": 81, "fav_emoji": [["😂", 42], ["🤣", 6], ["😉", 3]], "voice": 137, "voice_min": 17, "circles": 187, "circle_min": 26, "photo": 98, "video": 48, "sticker": 5, "edited_pct": 6.1, "forwarded": 63, "replies_sent": 475, "reactions": 191, "react_per100": 5.5, "night_pct": 4.1, "morning_pct": 3.3, "weekend_pct": 35.5, "peak_hour": 20, "active_days": 244, "record_day": ["08.02.2026", 157], "first": "04.12.2025", "last": "26.10.2026", "signature": [["пум", 6], ["усадьба", 6], ["рулем", 12], ["копеек", 6], ["баню", 6], ["вишня", 7], ["руль", 6], ["оке", 10]], "fav_word": "саня", "replied_to": 685, "got_reply_pct": 17.9, "reply_latency_min": 2.8, "best_buddy": "Вишня", "starter": 70, "killer": 76, "starter_per1k": 20.3, "killer_per1k": 22.0, "max_run": 34, "aggr": 61, "aggr_per1k": 17.7, "aggr_recv": 17, "fights_started": 2, "fights_in": 6, "mentioned": 80}, {"name": "Ezalor", "n": 3154, "share": 1.6, "words": 5942, "avg_len": 13.9, "avg_words": 2.3, "one_word_pct": 37.0, "mat": 196, "mat_per100": 6.2, "laugh_pct": 4.2, "laugh": 131, "q_pct": 6.9, "caps": 17, "love": 6, "thanks": 21, "sorry": 2, "agree": 55, "emoji": 163, "fav_emoji": [["😭", 15], ["🤏", 9], ["😈", 9]], "voice": 108, "voice_min": 13, "circles": 206, "circle_min": 60, "photo": 179, "video": 28, "sticker": 81, "edited_pct": 8.8, "forwarded": 67, "replies_sent": 1007, "reactions": 243, "react_per100": 7.7, "night_pct": 5.0, "morning_pct": 3.0, "weekend_pct": 27.6, "peak_hour": 23, "active_days": 293, "record_day": ["30.05.2024", 165], "first": "31.03.2024", "last": "30.09.2026", "signature": [["говна", 6], ["токо", 20], ["забулил", 6], ["самы", 15], ["кали", 12], ["чефтеме", 7], ["попозже", 8], ["баскет", 7]], "fav_word": "ясно", "replied_to": 631, "got_reply_pct": 17.2, "reply_latency_min": 0.3, "best_buddy": "2 Рубля Был Должен", "starter": 27, "killer": 27, "starter_per1k": 8.6, "killer_per1k": 8.6, "max_run": 35, "aggr": 40, "aggr_per1k": 12.7, "aggr_recv": 12, "fights_started": 1, "fights_in": 3, "mentioned": 0}, {"name": "Чирик", "n": 3021, "share": 1.6, "words": 6368, "avg_len": 11.7, "avg_words": 2.3, "one_word_pct": 35.4, "mat": 361, "mat_per100": 11.9, "laugh_pct": 6.1, "laugh": 184, "q_pct": 7.9, "caps": 4, "love": 3, "thanks": 6, "sorry": 2, "agree": 59, "emoji": 63, "fav_emoji": [["😹", 15], ["😂", 12], ["😅", 6]], "voice": 30, "voice_min": 2, "circles": 164, "circle_min": 15, "photo": 56, "video": 34, "sticker": 0, "edited_pct": 6.3, "forwarded": 18, "replies_sent": 607, "reactions": 182, "react_per100": 6.0, "night_pct": 8.3, "morning_pct": 2.3, "weekend_pct": 32.8, "peak_hour": 18, "active_days": 316, "record_day": ["02.04.2024", 86], "first": "28.03.2024", "last": "25.10.2026", "signature": [["хазах", 6], ["ново", 6], ["збс", 9], ["оке", 8], ["бери", 7], ["карте", 7], ["приедешь", 8], ["нормально", 17]], "fav_word": "хахаха", "replied_to": 663, "got_reply_pct": 19.1, "reply_latency_min": 2.4, "best_buddy": "Лиса", "starter": 32, "killer": 40, "starter_per1k": 10.6, "killer_per1k": 13.2, "max_run": 18, "aggr": 102, "aggr_per1k": 33.8, "aggr_recv": 34, "fights_started": 3, "fights_in": 15, "mentioned": 61}, {"name": "Селевич", "n": 2392, "share": 1.2, "words": 4935, "avg_len": 12.7, "avg_words": 2.3, "one_word_pct": 40.4, "mat": 273, "mat_per100": 11.4, "laugh_pct": 5.3, "laugh": 127, "q_pct": 6.9, "caps": 23, "love": 0, "thanks": 15, "sorry": 2, "agree": 52, "emoji": 19, "fav_emoji": [["☠", 5], ["😢", 3], ["😐", 2]], "voice": 35, "voice_min": 5, "circles": 149, "circle_min": 26, "photo": 46, "video": 6, "sticker": 8, "edited_pct": 9.8, "forwarded": 19, "replies_sent": 838, "reactions": 160, "react_per100": 6.7, "night_pct": 20.2, "morning_pct": 3.0, "weekend_pct": 35.1, "peak_hour": 23, "active_days": 234, "record_day": ["13.07.2024", 145], "first": "28.03.2024", "last": "09.09.2025", "signature": [["полчаса", 6], ["согл", 7], ["легенда", 17], ["настя", 8], ["бывает", 8], ["покер", 8], ["соло", 6], ["равно", 7]], "fav_word": "даник", "replied_to": 443, "got_reply_pct": 16.5, "reply_latency_min": 0.4, "best_buddy": "2 Рубля Был Должен", "starter": 19, "killer": 15, "starter_per1k": 7.9, "killer_per1k": 6.3, "max_run": 10, "aggr": 34, "aggr_per1k": 14.2, "aggr_recv": 13, "fights_started": 0, "fights_in": 6, "mentioned": 15}, {"name": "Удалённый аккаунт №3", "n": 2287, "share": 1.2, "words": 5735, "avg_len": 17.8, "avg_words": 2.7, "one_word_pct": 37.4, "mat": 345, "mat_per100": 15.1, "laugh_pct": 7.9, "laugh": 180, "q_pct": 7.7, "caps": 1, "love": 10, "thanks": 6, "sorry": 10, "agree": 46, "emoji": 153, "fav_emoji": [["☠", 34], ["🤡", 26], ["😍", 14]], "voice": 32, "voice_min": 2, "circles": 80, "circle_min": 10, "photo": 31, "video": 2, "sticker": 37, "edited_pct": 5.6, "forwarded": 13, "replies_sent": 650, "reactions": 130, "react_per100": 5.7, "night_pct": 16.4, "morning_pct": 3.8, "weekend_pct": 28.1, "peak_hour": 22, "active_days": 108, "record_day": ["28.03.2024", 274], "first": "28.03.2024", "last": "03.09.2024", "signature": [["есле", 11], ["лисовски", 7], ["затвро", 7], ["завтро", 6], ["блек", 8], ["лис", 18], ["скоко", 7], ["сосать", 9]], "fav_word": "даник", "replied_to": 547, "got_reply_pct": 19.3, "reply_latency_min": 0.2, "best_buddy": "Лиса", "starter": 3, "killer": 2, "starter_per1k": 1.3, "killer_per1k": 0.9, "max_run": 9, "aggr": 92, "aggr_per1k": 40.2, "aggr_recv": 20, "fights_started": 2, "fights_in": 14, "mentioned": 0}, {"name": "𝓟.", "n": 2160, "share": 1.1, "words": 6263, "avg_len": 16.7, "avg_words": 3.2, "one_word_pct": 24.6, "mat": 132, "mat_per100": 6.1, "laugh_pct": 4.2, "laugh": 91, "q_pct": 5.3, "caps": 121, "love": 4, "thanks": 5, "sorry": 3, "agree": 31, "emoji": 120, "fav_emoji": [["😔", 22], ["☺", 13], ["😶", 12]], "voice": 12, "voice_min": 2, "circles": 76, "circle_min": 10, "photo": 57, "video": 11, "sticker": 36, "edited_pct": 10.0, "forwarded": 24, "replies_sent": 694, "reactions": 213, "react_per100": 9.9, "night_pct": 13.4, "morning_pct": 4.1, "weekend_pct": 30.6, "peak_hour": 0, "active_days": 175, "record_day": ["03.07.2024", 114], "first": "29.03.2024", "last": "17.12.2024", "signature": [["делись", 7], ["пригоняй", 9], ["зэка", 9], ["окнами", 7], ["хабзу", 6], ["емае", 9], ["взяли", 7], ["школу", 13]], "fav_word": "минойты", "replied_to": 608, "got_reply_pct": 23.5, "reply_latency_min": 0.8, "best_buddy": "2 Рубля Был Должен", "starter": 6, "killer": 2, "starter_per1k": 2.8, "killer_per1k": 0.9, "max_run": 7, "aggr": 21, "aggr_per1k": 9.7, "aggr_recv": 8, "fights_started": 1, "fights_in": 4, "mentioned": 0}, {"name": "Эвелина", "n": 2093, "share": 1.1, "words": 5845, "avg_len": 14.7, "avg_words": 3.0, "one_word_pct": 26.9, "mat": 194, "mat_per100": 9.3, "laugh_pct": 3.5, "laugh": 73, "q_pct": 6.2, "caps": 0, "love": 16, "thanks": 31, "sorry": 2, "agree": 43, "emoji": 37, "fav_emoji": [["🥰", 23], ["💞", 11], ["✨", 3]], "voice": 92, "voice_min": 10, "circles": 13, "circle_min": 4, "photo": 4, "video": 3, "sticker": 0, "edited_pct": 8.6, "forwarded": 3, "replies_sent": 773, "reactions": 149, "react_per100": 7.1, "night_pct": 12.5, "morning_pct": 1.3, "weekend_pct": 36.6, "peak_hour": 23, "active_days": 163, "record_day": ["23.06.2024", 145], "first": "28.03.2024", "last": "24.10.2026", "signature": [["хпзпз", 6], ["кринж", 7], ["собирается", 6], ["большое", 6], ["сча", 6], ["скажешь", 6], ["идите", 6], ["говорила", 7]], "fav_word": "улице", "replied_to": 462, "got_reply_pct": 19.0, "reply_latency_min": 0.7, "best_buddy": "Вишня", "starter": 5, "killer": 8, "starter_per1k": 2.4, "killer_per1k": 3.8, "max_run": 9, "aggr": 28, "aggr_per1k": 13.4, "aggr_recv": 6, "fights_started": 2, "fights_in": 4, "mentioned": 83}, {"name": "Леша", "n": 2044, "share": 1.1, "words": 5960, "avg_len": 18.5, "avg_words": 3.2, "one_word_pct": 27.9, "mat": 201, "mat_per100": 9.8, "laugh_pct": 8.2, "laugh": 168, "q_pct": 11.3, "caps": 4, "love": 2, "thanks": 13, "sorry": 0, "agree": 39, "emoji": 27, "fav_emoji": [["🎉", 7], ["🔥", 3], ["🥰", 3]], "voice": 1, "voice_min": 0, "circles": 90, "circle_min": 11, "photo": 85, "video": 12, "sticker": 6, "edited_pct": 12.4, "forwarded": 24, "replies_sent": 840, "reactions": 188, "react_per100": 9.2, "night_pct": 3.5, "morning_pct": 2.0, "weekend_pct": 28.9, "peak_hour": 20, "active_days": 437, "record_day": ["08.09.2025", 42], "first": "01.04.2024", "last": "25.10.2026", "signature": [["бане", 8], ["субботу", 9], ["баню", 6], ["пары", 6], ["токо", 7], ["чупик", 6], ["газ", 6], ["ого", 12]], "fav_word": "ахахах", "replied_to": 405, "got_reply_pct": 17.5, "reply_latency_min": 4.2, "best_buddy": "Вишня", "starter": 59, "killer": 76, "starter_per1k": 28.9, "killer_per1k": 37.2, "max_run": 10, "aggr": 19, "aggr_per1k": 9.3, "aggr_recv": 1, "fights_started": 0, "fights_in": 2, "mentioned": 21}, {"name": "лизочка", "n": 2007, "share": 1.0, "words": 5064, "avg_len": 16.4, "avg_words": 3.1, "one_word_pct": 37.2, "mat": 344, "mat_per100": 17.1, "laugh_pct": 9.2, "laugh": 185, "q_pct": 4.3, "caps": 85, "love": 11, "thanks": 12, "sorry": 9, "agree": 47, "emoji": 203, "fav_emoji": [["😭", 29], ["🏻", 28], ["🖕", 21]], "voice": 89, "voice_min": 18, "circles": 187, "circle_min": 40, "photo": 56, "video": 7, "sticker": 11, "edited_pct": 7.6, "forwarded": 3, "replies_sent": 677, "reactions": 164, "react_per100": 8.2, "night_pct": 22.9, "morning_pct": 6.4, "weekend_pct": 22.8, "peak_hour": 0, "active_days": 129, "record_day": ["12.04.2024", 165], "first": "28.03.2024", "last": "18.10.2024", "signature": [["жаба", 7], ["ужассс", 6], ["круассан", 8], ["сашка", 6], ["внатуре", 12], ["закрой", 6], ["бабушки", 7], ["знаете", 6]], "fav_word": "ужас", "replied_to": 747, "got_reply_pct": 28.0, "reply_latency_min": 0.5, "best_buddy": "Вишня", "starter": 8, "killer": 15, "starter_per1k": 4.0, "killer_per1k": 7.5, "max_run": 45, "aggr": 63, "aggr_per1k": 31.4, "aggr_recv": 20, "fights_started": 4, "fights_in": 16, "mentioned": 23}, {"name": "Щавлик", "n": 1865, "share": 1.0, "words": 4537, "avg_len": 13.4, "avg_words": 2.5, "one_word_pct": 32.3, "mat": 183, "mat_per100": 9.8, "laugh_pct": 2.8, "laugh": 53, "q_pct": 4.1, "caps": 18, "love": 3, "thanks": 12, "sorry": 5, "agree": 29, "emoji": 89, "fav_emoji": [["😂", 14], ["🤘", 11], ["😈", 10]], "voice": 5, "voice_min": 1, "circles": 31, "circle_min": 7, "photo": 17, "video": 4, "sticker": 12, "edited_pct": 7.7, "forwarded": 9, "replies_sent": 412, "reactions": 118, "react_per100": 6.3, "night_pct": 9.4, "morning_pct": 3.4, "weekend_pct": 30.1, "peak_hour": 15, "active_days": 266, "record_day": ["25.02.2026", 67], "first": "28.03.2024", "last": "25.10.2026", "signature": [["ребят", 16], ["пацыки", 6], ["дальше", 6], ["дайте", 15], ["говорил", 8], ["попарить", 8], ["брат", 6], ["спасибо", 13]], "fav_word": "ребят", "replied_to": 291, "got_reply_pct": 13.7, "reply_latency_min": 2.0, "best_buddy": "Девятый", "starter": 21, "killer": 30, "starter_per1k": 11.3, "killer_per1k": 16.1, "max_run": 11, "aggr": 39, "aggr_per1k": 20.9, "aggr_recv": 7, "fights_started": 0, "fights_in": 2, "mentioned": 8}, {"name": "Якубовский С.А.", "n": 1462, "share": 0.8, "words": 3377, "avg_len": 12.7, "avg_words": 2.5, "one_word_pct": 35.6, "mat": 202, "mat_per100": 13.8, "laugh_pct": 3.3, "laugh": 48, "q_pct": 8.3, "caps": 2, "love": 10, "thanks": 2, "sorry": 2, "agree": 20, "emoji": 123, "fav_emoji": [["😖", 6], ["🥳", 6], ["😎", 6]], "voice": 1, "voice_min": 0, "circles": 27, "circle_min": 7, "photo": 6, "video": 1, "sticker": 56, "edited_pct": 5.7, "forwarded": 0, "replies_sent": 679, "reactions": 64, "react_per100": 4.4, "night_pct": 31.5, "morning_pct": 0.3, "weekend_pct": 36.7, "peak_hour": 1, "active_days": 58, "record_day": ["09.07.2024", 110], "first": "01.07.2024", "last": "30.10.2024", "signature": [["рилл", 7], ["баскет", 10], ["обидно", 6], ["влад", 9], ["гулять", 6], ["приедешь", 7], ["друг", 15], ["будете", 6]], "fav_word": "даник", "replied_to": 328, "got_reply_pct": 19.6, "reply_latency_min": 0.3, "best_buddy": "2 Рубля Был Должен", "starter": 2, "killer": 5, "starter_per1k": 1.4, "killer_per1k": 3.4, "max_run": 10, "aggr": 26, "aggr_per1k": 17.8, "aggr_recv": 19, "fights_started": 1, "fights_in": 8, "mentioned": 0}, {"name": "Саша Гринцевич", "n": 1379, "share": 0.7, "words": 4046, "avg_len": 17.0, "avg_words": 3.3, "one_word_pct": 22.1, "mat": 16, "mat_per100": 1.2, "laugh_pct": 3.7, "laugh": 51, "q_pct": 6.0, "caps": 3, "love": 1, "thanks": 12, "sorry": 0, "agree": 27, "emoji": 25, "fav_emoji": [["🥳", 6], ["☺", 5], ["🎊", 3]], "voice": 16, "voice_min": 2, "circles": 72, "circle_min": 13, "photo": 27, "video": 24, "sticker": 1, "edited_pct": 8.7, "forwarded": 6, "replies_sent": 530, "reactions": 104, "react_per100": 7.5, "night_pct": 10.1, "morning_pct": 7.0, "weekend_pct": 44.8, "peak_hour": 13, "active_days": 243, "record_day": ["08.02.2026", 90], "first": "30.03.2024", "last": "25.10.2026", "signature": [["никитой", 6], ["никита", 30], ["спит", 10], ["понятно", 14], ["машине", 6], ["скажи", 8], ["наверное", 6], ["рождения", 8]], "fav_word": "никита", "replied_to": 324, "got_reply_pct": 20.4, "reply_latency_min": 1.4, "best_buddy": "Девятый", "starter": 13, "killer": 21, "starter_per1k": 9.4, "killer_per1k": 15.2, "max_run": 13, "aggr": 7, "aggr_per1k": 5.1, "aggr_recv": 4, "fights_started": 0, "fights_in": 1, "mentioned": 0}, {"name": "я Алина", "n": 1309, "share": 0.7, "words": 3415, "avg_len": 15.1, "avg_words": 2.7, "one_word_pct": 32.9, "mat": 69, "mat_per100": 5.3, "laugh_pct": 10.5, "laugh": 138, "q_pct": 10.5, "caps": 79, "love": 9, "thanks": 16, "sorry": 10, "agree": 17, "emoji": 85, "fav_emoji": [["🤣", 13], ["😭", 10], ["💔", 6]], "voice": 1, "voice_min": 0, "circles": 3, "circle_min": 0, "photo": 32, "video": 4, "sticker": 4, "edited_pct": 19.9, "forwarded": 0, "replies_sent": 686, "reactions": 313, "react_per100": 23.9, "night_pct": 39.5, "morning_pct": 2.2, "weekend_pct": 38.0, "peak_hour": 1, "active_days": 113, "record_day": ["30.03.2024", 174], "first": "28.03.2024", "last": "21.08.2026", "signature": [["бмв", 14], ["прости", 6], ["топ", 14], ["люблю", 7], ["пожалуйста", 8], ["тобой", 8], ["давид", 10], ["захар", 8]], "fav_word": "спасибо", "replied_to": 445, "got_reply_pct": 27.3, "reply_latency_min": 0.5, "best_buddy": "Вишня", "starter": 0, "killer": 3, "starter_per1k": 0.0, "killer_per1k": 2.3, "max_run": 12, "aggr": 18, "aggr_per1k": 13.8, "aggr_recv": 6, "fights_started": 1, "fights_in": 4, "mentioned": 36}, {"name": "Надя", "n": 1248, "share": 0.7, "words": 3650, "avg_len": 16.8, "avg_words": 3.2, "one_word_pct": 27.8, "mat": 75, "mat_per100": 6.0, "laugh_pct": 5.0, "laugh": 63, "q_pct": 4.5, "caps": 56, "love": 8, "thanks": 9, "sorry": 0, "agree": 21, "emoji": 47, "fav_emoji": [["😜", 11], ["🥰", 8], ["😍", 4]], "voice": 15, "voice_min": 4, "circles": 46, "circle_min": 5, "photo": 29, "video": 7, "sticker": 11, "edited_pct": 14.0, "forwarded": 0, "replies_sent": 480, "reactions": 193, "react_per100": 15.5, "night_pct": 33.2, "morning_pct": 4.4, "weekend_pct": 24.4, "peak_hour": 0, "active_days": 80, "record_day": ["30.03.2024", 128], "first": "30.03.2024", "last": "03.07.2024", "signature": [["давидка", 7], ["думала", 6], ["боже", 10], ["давид", 9], ["крутой", 6], ["даник", 16], ["минойты", 10], ["минойтах", 7]], "fav_word": "даник", "replied_to": 427, "got_reply_pct": 28.4, "reply_latency_min": 0.8, "best_buddy": "Лиса", "starter": 0, "killer": 8, "starter_per1k": 0.0, "killer_per1k": 6.4, "max_run": 7, "aggr": 14, "aggr_per1k": 11.2, "aggr_recv": 10, "fights_started": 0, "fights_in": 3, "mentioned": 15}, {"name": "люся🐾", "n": 1155, "share": 0.6, "words": 3318, "avg_len": 15.9, "avg_words": 3.0, "one_word_pct": 35.9, "mat": 86, "mat_per100": 7.4, "laugh_pct": 6.7, "laugh": 77, "q_pct": 3.0, "caps": 51, "love": 3, "thanks": 1, "sorry": 5, "agree": 35, "emoji": 90, "fav_emoji": [["🙄", 16], ["🤟", 9], ["😝", 7]], "voice": 1, "voice_min": 0, "circles": 5, "circle_min": 1, "photo": 28, "video": 6, "sticker": 0, "edited_pct": 15.6, "forwarded": 4, "replies_sent": 543, "reactions": 182, "react_per100": 15.8, "night_pct": 13.2, "morning_pct": 3.5, "weekend_pct": 20.4, "peak_hour": 22, "active_days": 84, "record_day": ["30.03.2024", 69], "first": "30.03.2024", "last": "01.01.2025", "signature": [["фролов", 6], ["ниче", 6], ["ого", 9], ["пусть", 6], ["нам", 13], ["лох", 8], ["рождения", 6], ["днем", 6]], "fav_word": "нам", "replied_to": 310, "got_reply_pct": 23.5, "reply_latency_min": 0.6, "best_buddy": "Девятый", "starter": 0, "killer": 1, "starter_per1k": 0.0, "killer_per1k": 0.9, "max_run": 6, "aggr": 33, "aggr_per1k": 28.6, "aggr_recv": 10, "fights_started": 6, "fights_in": 12, "mentioned": 0}, {"name": "Удалённый аккаунт №4", "n": 1148, "share": 0.6, "words": 3500, "avg_len": 17.8, "avg_words": 3.2, "one_word_pct": 36.2, "mat": 171, "mat_per100": 14.9, "laugh_pct": 13.6, "laugh": 156, "q_pct": 9.5, "caps": 67, "love": 10, "thanks": 10, "sorry": 5, "agree": 28, "emoji": 173, "fav_emoji": [["😭", 36], ["😨", 36], ["😍", 17]], "voice": 11, "voice_min": 2, "circles": 8, "circle_min": 1, "photo": 14, "video": 6, "sticker": 9, "edited_pct": 17.1, "forwarded": 2, "replies_sent": 584, "reactions": 249, "react_per100": 21.7, "night_pct": 15.6, "morning_pct": 2.8, "weekend_pct": 36.6, "peak_hour": 22, "active_days": 97, "record_day": ["07.04.2024", 139], "first": "28.03.2024", "last": "09.11.2024", "signature": [["капец", 7], ["захар", 18], ["ширко", 6], ["пипец", 7], ["молодец", 6], ["крутой", 10], ["боже", 8], ["пожалуйста", 7]], "fav_word": "захар", "replied_to": 388, "got_reply_pct": 27.4, "reply_latency_min": 0.4, "best_buddy": "2 Рубля Был Должен", "starter": 1, "killer": 2, "starter_per1k": 0.9, "killer_per1k": 1.7, "max_run": 4, "aggr": 44, "aggr_per1k": 38.3, "aggr_recv": 9, "fights_started": 0, "fights_in": 11, "mentioned": 0}, {"name": "Баба Валя", "n": 1019, "share": 0.5, "words": 2979, "avg_len": 16.7, "avg_words": 3.1, "one_word_pct": 26.9, "mat": 68, "mat_per100": 6.7, "laugh_pct": 3.8, "laugh": 39, "q_pct": 3.0, "caps": 0, "love": 5, "thanks": 5, "sorry": 3, "agree": 6, "emoji": 256, "fav_emoji": [["☠", 110], ["😄", 16], ["😇", 16]], "voice": 3, "voice_min": 0, "circles": 32, "circle_min": 5, "photo": 29, "video": 0, "sticker": 0, "edited_pct": 7.9, "forwarded": 3, "replies_sent": 131, "reactions": 71, "react_per100": 7.0, "night_pct": 3.0, "morning_pct": 9.9, "weekend_pct": 22.7, "peak_hour": 20, "active_days": 31, "record_day": ["14.10.2024", 104], "first": "07.10.2024", "last": "19.08.2025", "signature": [["ясно", 10], ["хотел", 7], ["тока", 7], ["красава", 10], ["день", 6], ["ладно", 8]], "fav_word": "ясно", "replied_to": 117, "got_reply_pct": 10.1, "reply_latency_min": 2.6, "best_buddy": "2 Рубля Был Должен", "starter": 3, "killer": 5, "starter_per1k": 2.9, "killer_per1k": 4.9, "max_run": 23, "aggr": 8, "aggr_per1k": 7.9, "aggr_recv": 5, "fights_started": 0, "fights_in": 0, "mentioned": 13}, {"name": "Zaza", "n": 881, "share": 0.5, "words": 2526, "avg_len": 15.2, "avg_words": 3.0, "one_word_pct": 35.4, "mat": 186, "mat_per100": 21.1, "laugh_pct": 10.7, "laugh": 94, "q_pct": 6.7, "caps": 0, "love": 0, "thanks": 11, "sorry": 3, "agree": 18, "emoji": 4, "fav_emoji": [["🤬", 1], ["😠", 1], ["💜", 1]], "voice": 2, "voice_min": 0, "circles": 12, "circle_min": 2, "photo": 4, "video": 0, "sticker": 26, "edited_pct": 9.4, "forwarded": 0, "replies_sent": 261, "reactions": 64, "react_per100": 7.3, "night_pct": 10.7, "morning_pct": 0.2, "weekend_pct": 33.7, "peak_hour": 23, "active_days": 95, "record_day": ["07.04.2024", 157], "first": "28.03.2024", "last": "26.11.2024", "signature": [["согл", 7], ["спс", 7], ["лиса", 10], ["кароче", 6], ["неа", 6], ["братва", 16], ["рождения", 7], ["днем", 7]], "fav_word": "даник", "replied_to": 197, "got_reply_pct": 18.6, "reply_latency_min": 0.3, "best_buddy": "2 Рубля Был Должен", "starter": 1, "killer": 2, "starter_per1k": 1.1, "killer_per1k": 2.3, "max_run": 7, "aggr": 23, "aggr_per1k": 26.1, "aggr_recv": 8, "fights_started": 2, "fights_in": 7, "mentioned": 16}, {"name": "Danya🎸✨", "n": 845, "share": 0.4, "words": 2283, "avg_len": 17.1, "avg_words": 2.9, "one_word_pct": 24.6, "mat": 114, "mat_per100": 13.5, "laugh_pct": 4.9, "laugh": 41, "q_pct": 9.2, "caps": 0, "love": 0, "thanks": 5, "sorry": 1, "agree": 11, "emoji": 35, "fav_emoji": [["❗", 6], ["⚡", 6], ["🔥", 4]], "voice": 7, "voice_min": 2, "circles": 48, "circle_min": 12, "photo": 8, "video": 4, "sticker": 4, "edited_pct": 9.8, "forwarded": 6, "replies_sent": 271, "reactions": 66, "react_per100": 7.8, "night_pct": 12.7, "morning_pct": 3.2, "weekend_pct": 38.1, "peak_hour": 15, "active_days": 160, "record_day": ["13.09.2025", 53], "first": "28.03.2024", "last": "15.08.2026", "signature": [["покурыть", 9], ["счас", 14], ["добре", 9], ["жижи", 9], ["хиба", 8], ["попарить", 13], ["покурить", 6], ["кому", 8]], "fav_word": "счас", "replied_to": 265, "got_reply_pct": 24.4, "reply_latency_min": 1.1, "best_buddy": "2 Рубля Был Должен", "starter": 15, "killer": 14, "starter_per1k": 17.8, "killer_per1k": 16.6, "max_run": 7, "aggr": 15, "aggr_per1k": 17.8, "aggr_recv": 7, "fights_started": 1, "fights_in": 2, "mentioned": 1}, {"name": "Сидор", "n": 699, "share": 0.4, "words": 2038, "avg_len": 21.8, "avg_words": 3.5, "one_word_pct": 23.8, "mat": 47, "mat_per100": 6.7, "laugh_pct": 2.1, "laugh": 15, "q_pct": 15.5, "caps": 3, "love": 1, "thanks": 13, "sorry": 0, "agree": 15, "emoji": 44, "fav_emoji": [["🥳", 7], ["🎉", 5], ["🍻", 4]], "voice": 1, "voice_min": 0, "circles": 28, "circle_min": 6, "photo": 55, "video": 11, "sticker": 21, "edited_pct": 15.2, "forwarded": 4, "replies_sent": 192, "reactions": 132, "react_per100": 18.9, "night_pct": 8.2, "morning_pct": 4.7, "weekend_pct": 23.6, "peak_hour": 23, "active_days": 205, "record_day": ["28.03.2024", 24], "first": "28.03.2024", "last": "16.10.2026", "signature": [["рождения", 8], ["днем", 8], ["спасибо", 12]], "fav_word": "спасибо", "replied_to": 265, "got_reply_pct": 30.3, "reply_latency_min": 2.9, "best_buddy": "Лиса", "starter": 22, "killer": 16, "starter_per1k": 31.5, "killer_per1k": 22.9, "max_run": 12, "aggr": 8, "aggr_per1k": 11.4, "aggr_recv": 6, "fights_started": 0, "fights_in": 0, "mentioned": 29}, {"name": "Удалённый аккаунт №5", "n": 612, "share": 0.3, "words": 1092, "avg_len": 11.0, "avg_words": 2.0, "one_word_pct": 48.6, "mat": 69, "mat_per100": 11.3, "laugh_pct": 8.0, "laugh": 49, "q_pct": 4.4, "caps": 35, "love": 0, "thanks": 2, "sorry": 1, "agree": 10, "emoji": 3, "fav_emoji": [["😭", 2], ["🎁", 1]], "voice": 2, "voice_min": 0, "circles": 13, "circle_min": 2, "photo": 14, "video": 5, "sticker": 36, "edited_pct": 8.0, "forwarded": 6, "replies_sent": 182, "reactions": 56, "react_per100": 9.2, "night_pct": 18.0, "morning_pct": 1.1, "weekend_pct": 29.7, "peak_hour": 23, "active_days": 39, "record_day": ["05.04.2024", 121], "first": "30.03.2024", "last": "31.08.2024", "signature": [], "fav_word": "ахахаххахаа", "replied_to": 110, "got_reply_pct": 14.7, "reply_latency_min": 0.2, "best_buddy": "Лиса", "starter": 2, "killer": 2, "starter_per1k": 3.3, "killer_per1k": 3.3, "max_run": 6, "aggr": 5, "aggr_per1k": 8.2, "aggr_recv": 5, "fights_started": 0, "fights_in": 0, "mentioned": 0}, {"name": "Максим", "n": 605, "share": 0.3, "words": 1209, "avg_len": 10.7, "avg_words": 2.2, "one_word_pct": 45.8, "mat": 33, "mat_per100": 5.5, "laugh_pct": 8.1, "laugh": 49, "q_pct": 6.4, "caps": 1, "love": 0, "thanks": 3, "sorry": 2, "agree": 15, "emoji": 18, "fav_emoji": [["☠", 12], ["😨", 6]], "voice": 1, "voice_min": 0, "circles": 1, "circle_min": 0, "photo": 40, "video": 5, "sticker": 17, "edited_pct": 11.6, "forwarded": 2, "replies_sent": 451, "reactions": 64, "react_per100": 10.6, "night_pct": 58.3, "morning_pct": 0.0, "weekend_pct": 49.4, "peak_hour": 0, "active_days": 4, "record_day": ["30.03.2024", 170], "first": "28.03.2024", "last": "31.03.2024", "signature": [["бро", 13], ["имба", 8], ["брат", 6]], "fav_word": "бро", "replied_to": 130, "got_reply_pct": 17.2, "reply_latency_min": 0.2, "best_buddy": "2 Рубля Был Должен", "starter": 1, "killer": 0, "starter_per1k": 1.7, "killer_per1k": 0.0, "max_run": 9, "aggr": 5, "aggr_per1k": 8.3, "aggr_recv": 4, "fights_started": 1, "fights_in": 2, "mentioned": 0}, {"name": "еромка", "n": 395, "share": 0.2, "words": 765, "avg_len": 11.6, "avg_words": 2.1, "one_word_pct": 37.2, "mat": 17, "mat_per100": 4.3, "laugh_pct": 2.8, "laugh": 11, "q_pct": 13.4, "caps": 1, "love": 0, "thanks": 0, "sorry": 0, "agree": 6, "emoji": 12, "fav_emoji": [["🐕", 7], ["🗣", 5]], "voice": 0, "voice_min": 0, "circles": 7, "circle_min": 1, "photo": 11, "video": 4, "sticker": 4, "edited_pct": 7.8, "forwarded": 0, "replies_sent": 96, "reactions": 68, "react_per100": 17.2, "night_pct": 18.7, "morning_pct": 0.3, "weekend_pct": 15.4, "peak_hour": 18, "active_days": 51, "record_day": ["16.07.2024", 61], "first": "28.03.2024", "last": "02.01.2025", "signature": [], "fav_word": "недо", "replied_to": 100, "got_reply_pct": 20.8, "reply_latency_min": 0.3, "best_buddy": "Вишня", "starter": 2, "killer": 1, "starter_per1k": 5.1, "killer_per1k": 2.5, "max_run": 9, "aggr": 5, "aggr_per1k": 12.7, "aggr_recv": 4, "fights_started": 0, "fights_in": 1, "mentioned": 0}, {"name": "𝒩𝒶𝓉𝒶𝓁𝒾", "n": 374, "share": 0.2, "words": 576, "avg_len": 11.5, "avg_words": 2.3, "one_word_pct": 44.6, "mat": 10, "mat_per100": 2.7, "laugh_pct": 7.5, "laugh": 28, "q_pct": 5.1, "caps": 1, "love": 0, "thanks": 0, "sorry": 1, "agree": 15, "emoji": 0, "fav_emoji": [], "voice": 74, "voice_min": 9, "circles": 38, "circle_min": 5, "photo": 11, "video": 0, "sticker": 0, "edited_pct": 4.3, "forwarded": 1, "replies_sent": 141, "reactions": 17, "react_per100": 4.5, "night_pct": 21.1, "morning_pct": 0.0, "weekend_pct": 36.9, "peak_hour": 23, "active_days": 37, "record_day": ["13.07.2024", 89], "first": "04.04.2024", "last": "14.10.2024", "signature": [], "fav_word": "ахахах", "replied_to": 145, "got_reply_pct": 30.7, "reply_latency_min": 0.2, "best_buddy": "👄", "starter": 0, "killer": 1, "starter_per1k": 0.0, "killer_per1k": 2.7, "max_run": 9, "aggr": 5, "aggr_per1k": 13.4, "aggr_recv": 3, "fights_started": 0, "fights_in": 3, "mentioned": 0}, {"name": "Удалённый аккаунт №6", "n": 361, "share": 0.2, "words": 776, "avg_len": 11.9, "avg_words": 2.3, "one_word_pct": 40.6, "mat": 59, "mat_per100": 16.3, "laugh_pct": 7.5, "laugh": 27, "q_pct": 4.2, "caps": 0, "love": 0, "thanks": 1, "sorry": 0, "agree": 12, "emoji": 7, "fav_emoji": [["😂", 4], ["🥺", 1], ["😭", 1]], "voice": 17, "voice_min": 2, "circles": 4, "circle_min": 1, "photo": 4, "video": 0, "sticker": 2, "edited_pct": 8.9, "forwarded": 0, "replies_sent": 106, "reactions": 23, "react_per100": 6.4, "night_pct": 0.0, "morning_pct": 1.7, "weekend_pct": 2.5, "peak_hour": 15, "active_days": 7, "record_day": ["01.04.2024", 141], "first": "01.04.2024", "last": "07.04.2024", "signature": [], "fav_word": "ахахахаха", "replied_to": 138, "got_reply_pct": 27.7, "reply_latency_min": 0.2, "best_buddy": "Лиса", "starter": 0, "killer": 0, "starter_per1k": 0.0, "killer_per1k": 0.0, "max_run": 8, "aggr": 9, "aggr_per1k": 24.9, "aggr_recv": 6, "fights_started": 1, "fights_in": 3, "mentioned": 0}, {"name": "Ульяна ☂", "n": 352, "share": 0.2, "words": 914, "avg_len": 16.7, "avg_words": 3.2, "one_word_pct": 22.2, "mat": 24, "mat_per100": 6.8, "laugh_pct": 4.3, "laugh": 15, "q_pct": 8.8, "caps": 0, "love": 1, "thanks": 4, "sorry": 0, "agree": 0, "emoji": 4, "fav_emoji": [["💋", 2], ["👍", 1], ["🤗", 1]], "voice": 42, "voice_min": 9, "circles": 22, "circle_min": 4, "photo": 0, "video": 0, "sticker": 0, "edited_pct": 7.7, "forwarded": 4, "replies_sent": 30, "reactions": 26, "react_per100": 7.4, "night_pct": 25.9, "morning_pct": 0.0, "weekend_pct": 42.9, "peak_hour": 16, "active_days": 33, "record_day": ["13.07.2024", 82], "first": "28.03.2024", "last": "21.08.2026", "signature": [["лиде", 7]], "fav_word": "лиде", "replied_to": 149, "got_reply_pct": 32.7, "reply_latency_min": null, "best_buddy": "Вишня", "starter": 4, "killer": 4, "starter_per1k": 11.4, "killer_per1k": 11.4, "max_run": 5, "aggr": 2, "aggr_per1k": 5.7, "aggr_recv": 0, "fights_started": 0, "fights_in": 0, "mentioned": 3}, {"name": ".", "n": 340, "share": 0.2, "words": 689, "avg_len": 16.8, "avg_words": 2.8, "one_word_pct": 38.2, "mat": 54, "mat_per100": 15.9, "laugh_pct": 4.1, "laugh": 14, "q_pct": 10.3, "caps": 3, "love": 0, "thanks": 0, "sorry": 1, "agree": 7, "emoji": 2, "fav_emoji": [["🍥", 1], ["😝", 1]], "voice": 6, "voice_min": 1, "circles": 23, "circle_min": 4, "photo": 4, "video": 0, "sticker": 61, "edited_pct": 10.3, "forwarded": 1, "replies_sent": 99, "reactions": 26, "react_per100": 7.6, "night_pct": 23.2, "morning_pct": 1.8, "weekend_pct": 20.0, "peak_hour": 1, "active_days": 55, "record_day": ["21.08.2024", 34], "first": "29.03.2024", "last": "25.10.2024", "signature": [], "fav_word": "ахаха", "replied_to": 69, "got_reply_pct": 17.4, "reply_latency_min": 1.1, "best_buddy": "2 Рубля Был Должен", "starter": 1, "killer": 1, "starter_per1k": 2.9, "killer_per1k": 2.9, "max_run": 5, "aggr": 12, "aggr_per1k": 35.3, "aggr_recv": 2, "fights_started": 1, "fights_in": 1, "mentioned": 0}, {"name": "wivolet", "n": 327, "share": 0.2, "words": 936, "avg_len": 16.7, "avg_words": 3.0, "one_word_pct": 35.3, "mat": 28, "mat_per100": 8.6, "laugh_pct": 15.6, "laugh": 51, "q_pct": 13.5, "caps": 5, "love": 2, "thanks": 2, "sorry": 2, "agree": 8, "emoji": 28, "fav_emoji": [["🔤", 13], ["🥳", 3], ["😍", 2]], "voice": 1, "voice_min": 0, "circles": 1, "circle_min": 0, "photo": 12, "video": 0, "sticker": 2, "edited_pct": 14.1, "forwarded": 3, "replies_sent": 188, "reactions": 39, "react_per100": 11.9, "night_pct": 9.5, "morning_pct": 5.2, "weekend_pct": 24.8, "peak_hour": 23, "active_days": 104, "record_day": ["21.08.2024", 25], "first": "28.03.2024", "last": "29.11.2024", "signature": [["пипец", 23], ["согл", 8], ["емае", 6]], "fav_word": "пипец", "replied_to": 88, "got_reply_pct": 22.6, "reply_latency_min": 1.8, "best_buddy": "2 Рубля Был Должен", "starter": 3, "killer": 2, "starter_per1k": 9.2, "killer_per1k": 6.1, "max_run": 5, "aggr": 4, "aggr_per1k": 12.2, "aggr_recv": 1, "fights_started": 1, "fights_in": 1, "mentioned": 0}]};
+const P = S.people;
+const fmt = n => Number(n).toLocaleString("ru-RU");
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html !== undefined) e.innerHTML = html; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const MONTHS = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+const WD = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+const O = S.overview;
+
+// ---------- шапка ----------
+document.getElementById("heroSub").textContent =
+  `${fmt(O.days_span)} дней, ${fmt(O.messages)} сообщений и ${O.people_total} человек, которые хоть раз сюда писали`;
+const facts = [
+  [O.messages, "сообщений"], [O.words, "слов"], [O.video_note, "кружочков"], [O.voice, "голосовых"],
+  [O.photo, "фото"], [O.avg_per_active_day, "сообщений в среднем за живой день"],
+  [O.replies, "ответов (reply)"], [O.group_calls, "созвонов"],
+];
+const factsEl = document.getElementById("facts");
+facts.forEach(([v, l]) => factsEl.append(el("div", "fact", `<b>${fmt(v)}</b><span>${l}</span>`)));
+
+// ---------- по месяцам ----------
+(function monthly() {
+  const data = S.monthly, max = Math.max(...data.map(d => d[1]));
+  const W = 960, H = 300, L = 44, B = 40, T = 34, bw = (W - L - 8) / data.length;
+  const y = v => T + (H - T - B) * (1 - v / max);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Сообщения по месяцам">`;
+  [0, 10000, 20000, 30000].forEach(v => {
+    svg += `<line class="grid" x1="${L}" x2="${W - 4}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v / 1000}k</text>`;
+  });
+  data.forEach(([m, v], i) => {
+    const x = L + i * bw + 2, h = Math.max(1, H - B - y(v));
+    const [yy, mm] = m.split("-");
+    const top = S.monthly_top[m];
+    svg += `<rect class="bar${v === max ? " peak" : ""}" x="${x}" y="${H - B - h}" width="${bw - 4}" height="${h}" rx="2"><title>${MONTHS[+mm - 1]} ${yy}: ${fmt(v)} сообщений. Больше всех: ${esc(top[0])} (${fmt(top[1])})</title></rect>`;
+    if (+mm === 1 || i === 0) svg += `<text x="${x + (bw - 4) / 2}" y="${H - B + 30}" text-anchor="middle">${yy}</text>`;
+    if (i % 3 === 0) svg += `<text x="${x + (bw - 4) / 2}" y="${H - B + 15}" text-anchor="middle">${MONTHS[+mm - 1]}</text>`;
+  });
+  const idx = data.findIndex(d => d[1] === max);
+  svg += `<text class="note" x="${L + idx * bw + bw}" y="${y(max) + 4}">${fmt(max)} — апрель 2024</text>`;
+  const dead = data.findIndex(d => d[0] === "2025-05");
+  svg += `<text class="note" x="${L + dead * bw - 30}" y="${H - B - 26}" text-anchor="middle">11 сообщений за месяц</text>`;
+  svg += `</svg>`;
+  document.getElementById("monthly").innerHTML = svg;
+
+  const sumRange = (a, b) => data.filter(d => d[0] >= a && d[0] <= b).reduce((s, d) => s + d[1], 0);
+  const eras = [
+    ["Золотой век", "мар — окт 2024", `${fmt(sumRange("2024-03", "2024-10"))} сообщений за 8 месяцев. Рекордный день — 08.04.2024: ${fmt(O.record_day[1])} сообщений.`, true],
+    ["Угасание", "ноя 2024 — июл 2025", `Всего ${fmt(sumRange("2024-11", "2025-07"))}. В марте 2025 — 31 сообщение, в мае — 11. Тишина в ${O.longest_silence.days} дней оборвал(а) ${esc(O.longest_silence.broke)}.`, false],
+    ["Воскрешение", "авг 2025 — сейчас", `${fmt(sumRange("2025-08", "2026-10"))} сообщений. Пик второй жизни — февраль 2026 (${fmt(data.find(d => d[0] === "2026-02")[1])}).`, false],
+  ];
+  const er = document.getElementById("eras");
+  eras.forEach(([t, d, s, rose]) => er.append(el("div", "era" + (rose ? " rose" : ""), `<b>${t}</b><span class="num">${d}</span><span>${s}</span>`)));
+})();
+
+// ---------- лидерборд ----------
+function board(id, rows, opts = {}) {
+  const box = document.getElementById(id);
+  box.innerHTML = "";
+  const max = Math.max(...rows.map(r => r[1]));
+  rows.forEach((r, i) => {
+    const row = el("div", "row" + (opts.rose ? " rose" : ""));
+    row.innerHTML = `<span class="rk">${i + 1}</span><span class="nm" title="${esc(r[0])}">${esc(r[0])}</span>` +
+      `<span class="track"><span class="fill" style="display:block;width:${(100 * r[1] / max).toFixed(1)}%"></span></span>` +
+      `<span class="val">${opts.fmt ? opts.fmt(r[1], r) : fmt(r[1])}</span>`;
+    box.append(row);
+  });
+}
+const top4 = P.slice(0, 4).reduce((s, p) => s + p.n, 0);
+document.getElementById("boardLead").textContent =
+  `Четыре главных голоса — ${P.slice(0, 4).map(p => p.name).join(", ")} — написали ${Math.round(100 * top4 / O.messages)}% всего чата.`;
+board("board", P.slice(0, 25).map(p => [p.name, p.n, p.share]), { fmt: (v, r) => `${fmt(v)}` });
+
+// ---------- номинации ----------
+const big = P.filter(p => p.n >= 1000);
+const per1k = (k) => p => +(1000 * p[k] / p.n).toFixed(1);
+const fromList = (list) => list.map(([n, v]) => ({ name: n, v }));
+const AW = [
+  ["Главный голос", "Больше всех сообщений за всю историю", P, p => p.n, v => `${fmt(v)} сообщений`],
+  ["Писатель", "Самые длинные сообщения в среднем", big, p => p.avg_len, v => `${v} символов`],
+  ["Мастер одного слова", "Чаще всех отвечает одним словом", big, p => p.one_word_pct, v => `${v}% сообщений`],
+  ["Сапожник", "Больше всех мата на 100 сообщений", big, p => p.mat_per100, v => `${v} на 100 сообщений`],
+  ["Самый культурный", "Меньше всех мата на 100 сообщений", big, p => -p.mat_per100, v => `${-v} на 100 сообщений`],
+  ["Хохотун", "Чаще всех смеётся: ахах, хвхв, лол, 😂", big, p => p.laugh_pct, v => `${v}% сообщений`],
+  ["Почемучка", "Чаще всех задаёт вопросы", big, p => p.q_pct, v => `${v}% сообщений с «?»`],
+  ["КАПСЛОК", "Больше всех сообщений капсом", P, p => p.caps, v => `${fmt(v)} криков`],
+  ["Кружочник", "Больше всех видеокружочков", P, p => p.circles, v => `${fmt(v)} кружочков`],
+  ["Радиоведущий", "Больше всех минут голосовых", P, p => p.voice_min, v => `${fmt(v)} минут`],
+  ["Фотограф", "Больше всех фото", P, p => p.photo, v => `${fmt(v)} фото`],
+  ["Стикерщик", "Больше всех стикеров", P, p => p.sticker, v => `${fmt(v)} стикеров`],
+  ["Эмодзи-маньяк", "Больше всех эмодзи на 100 сообщений", big, p => +(100 * p.emoji / p.n).toFixed(1), v => `${v} на 100 сообщений`],
+  ["Перфекционист", "Чаще всех редактирует свои сообщения", big, p => p.edited_pct, v => `${v}% исправлено`],
+  ["Репостер", "Больше всех пересылает", P, p => p.forwarded, v => `${fmt(v)} пересылок`],
+  ["Звезда реакций", "Больше всех реакций на 100 сообщений", big, p => p.react_per100, v => `${v} на 100 сообщений`],
+  ["Сова", "Чаще всех пишет с 00:00 до 05:00", big, p => p.night_pct, v => `${v}% сообщений ночью`],
+  ["Жаворонок", "Чаще всех пишет с 05:00 до 09:00", big, p => p.morning_pct, v => `${v}% сообщений утром`],
+  ["Выходной воин", "Больше всех пишет по выходным", big, p => p.weekend_pct, v => `${v}% сообщений в сб–вс`],
+  ["Заводила", "Чаще всех оживляет чат после 2+ часов тишины", P, p => p.starter, v => `${fmt(v)} раз`],
+  ["Убийца разговоров", "После его сообщения чат молчит 2+ часа", P, p => p.killer, v => `${fmt(v)} раз`],
+  ["Монологист", "Самая длинная серия сообщений подряд", P, p => p.max_run, v => `${fmt(v)} подряд`],
+  ["Молния", "Быстрее всех отвечает (медиана)", big.filter(p => p.reply_latency_min != null), p => -p.reply_latency_min, v => `${Math.round(-v * 60)} секунд`],
+  ["Черепаха", "Дольше всех отвечает (медиана)", big.filter(p => p.reply_latency_min != null), p => p.reply_latency_min, v => `${v} минуты`],
+  ["Магнит", "Больше всех получает ответов", P, p => p.replied_to, v => `${fmt(v)} ответов`],
+  ["Глас вопиющего", "Реже всех получает ответ на сообщение", big, p => -p.got_reply_pct, v => `ответили лишь на ${-v}%`],
+  ["Самый вежливый", "Чаще всех говорит «спасибо»", big, per1k("thanks"), v => `${v} на 1000 сообщений`],
+  ["Извиняшка", "Чаще всех извиняется", big, per1k("sorry"), v => `${v} на 1000 сообщений`],
+  ["Романтик", "«Люблю», «обожаю» и сердечки", P, p => p.love, v => `${fmt(v)} раз`],
+  ["Поддакиватель", "«Да», «база», «факт», «согл»", big, per1k("agree"), v => `${v} на 1000 сообщений`],
+  ["Хлопает дверью", "Больше всех выходил из чата", fromList(S.leaves), p => p.v, v => `${v} выходов`],
+  ["Вербовщик", "Больше всех добавлял людей", fromList(S.adds), p => p.v, v => `${v} добавлений`],
+  ["Хранитель закрепа", "Больше всех закреплял сообщения", fromList(S.pinners), p => p.v, v => `${v} закрепов`],
+  ["Звезда тегов", "Чаще всех упоминают через @", P, p => p.mentioned, v => `${fmt(v)} упоминаний`],
+  ["Старожил", "Больше всех дней с сообщениями", P, p => p.active_days, v => `${fmt(v)} дней`],
+  ["Марафонец", "Больше всех сообщений за один день", P, p => p.record_day[1], (v, p) => `${fmt(v)} за ${p.record_day[0]}`],
+];
+const awardsEl = document.getElementById("awards");
+AW.forEach(([t, d, pool, key, f]) => {
+  const ranked = pool.map(p => ({ p, v: key(p) })).filter(x => x.v != null && !Number.isNaN(x.v)).sort((a, b) => b.v - a.v);
+  if (!ranked.length) return;
+  const [w, ...rest] = ranked;
+  const card = el("article", "award");
+  card.innerHTML = `<div class="t">${t}</div><div class="d">${d}</div><div class="w">${esc(w.p.name)}</div><div class="v">${f(w.v, w.p)}</div>` +
+    `<ol start="2">${rest.slice(0, 2).map(x => `<li>${esc(x.p.name)} — ${f(x.v, x.p)}</li>`).join("")}</ol>`;
+  awardsEl.append(card);
+});
+
+// ---------- ссоры ----------
+const F = S.fights;
+document.getElementById("fightsTitle").textContent = `${F.episodes} срачей. Кто их начинает`;
+board("fStarters", F.starters.slice(0, 8), { rose: true, fmt: v => `${v} раз` });
+board("fPart", F.participants.slice(0, 8), { rose: true, fmt: v => `${v} раз` });
+board("fAggr", big.map(p => [p.name, p.aggr_per1k]).sort((a, b) => b[1] - a[1]).slice(0, 8), { rose: true, fmt: v => `${v}` });
+board("fRecv", P.map(p => [p.name, p.aggr_recv]).sort((a, b) => b[1] - a[1]).slice(0, 8), { rose: true });
+board("fPairs", F.pairs.slice(0, 8).map(([a, b, c]) => [`${a} × ${b}`, c]), { rose: true });
+const fBig = document.getElementById("fBig");
+F.biggest.slice(0, 6).forEach(e => {
+  const r = el("div", "fight");
+  r.innerHTML = `<span class="when">${e.date}</span><span class="who">${e.who.map(esc).join(", ")}</span>` +
+    `<span class="stat">Начал(а): ${esc(e.starter_name)} · ${e.hits} наездов · ${fmt(e.msgs)} сообщений за ${e.minutes} мин</span>`;
+  fBig.append(r);
+});
+
+// ---------- пары ----------
+board("pairs", S.top_pairs.slice(0, 10).map(([a, b, c]) => [`${a} × ${b}`, c]));
+board("pairsDir", S.top_reply_directed.slice(0, 10).map(([a, b, c]) => [`${a} → ${b}`, c]));
+
+// ---------- слова ----------
+document.getElementById("wordsLead").textContent =
+  `${fmt(O.words)} слов. Без предлогов, местоимений и прочей связки — вот что осталось.`;
+const wmax = S.top_words[0][1];
+const wordsEl = document.getElementById("words");
+S.top_words.forEach(([w, c]) => {
+  const ch = el("span", "chip", `${esc(w)}<small>${fmt(c)}</small>`);
+  ch.style.fontSize = (0.85 + 0.9 * c / wmax).toFixed(2) + "rem";
+  wordsEl.append(ch);
+});
+const matEl = document.getElementById("mat");
+S.top_mat.forEach(([w, c]) => matEl.append(el("span", "chip rose", `${esc(w)}<small>${fmt(c)}</small>`)));
+const emEl = document.getElementById("emoji");
+S.top_emoji.slice(0, 14).forEach(([e, c]) => emEl.append(el("span", "", `${e}<small>${fmt(c)}</small>`)));
+const yEl = document.getElementById("years");
+Object.entries(S.words_by_year).forEach(([y, ws]) => {
+  const box = el("div", "panel", `<h3 class="num">${y}</h3>`);
+  const chips = el("div", "chips");
+  chips.style.marginTop = "10px";
+  ws.slice(0, 12).forEach(w => chips.append(el("span", "chip", esc(w))));
+  box.append(chips);
+  yEl.append(box);
+});
+
+// ---------- часы ----------
+(function hours() {
+  const h = S.by_hour, max = Math.max(...h), peak = h.indexOf(max), low = h.indexOf(Math.min(...h));
+  const hb = document.getElementById("hours"), hl = document.getElementById("hlabels");
+  h.forEach((v, i) => {
+    const b = el("div", i === peak ? "hot" : "");
+    b.style.height = (100 * v / max).toFixed(1) + "%";
+    b.title = `${String(i).padStart(2, "0")}:00 — ${fmt(v)} сообщений`;
+    hb.append(b);
+    hl.append(el("span", "", i % 3 === 0 ? String(i).padStart(2, "0") : ""));
+  });
+  const night = h.slice(0, 3).reduce((a, b) => a + b, 0) + h[23];
+  document.getElementById("hoursLead").textContent =
+    `Пик — ${peak}:00 (${fmt(max)} сообщений), меньше всего — в ${low}:00 (${fmt(h[low])}). ` +
+    `С 23:00 до 03:00 написано ${Math.round(100 * night / O.messages)}% всего чата.`;
+  board("weekdays", S.by_weekday.map((v, i) => [WD[i], v]));
+})();
+
+// ---------- рекорды ----------
+const R = S.records, LM = S.longest_monologue, LS = O.longest_silence;
+const recs = [
+  [fmt(O.record_day[1]), `сообщений за один день — ${O.record_day[0]}`],
+  [fmt(O.record_hour[2]), `сообщений за один час — ${O.record_hour[0]}, с ${O.record_hour[1]}:00`],
+  [fmt(R.person_day[2]), `сообщений за день от одного человека — ${esc(R.person_day[0])}, ${R.person_day[1]}`],
+  [fmt(LM.n), `сообщений подряд без перебивки — ${esc(LM.who)}, ${LM.date}`],
+  [`${LS.days} дней`, `самая долгая тишина: ${LS.from} — ${LS.to}`],
+  [`${Math.floor(R.longest_voice[1] / 60)}:${String(R.longest_voice[1] % 60).padStart(2, "0")}`, `самое длинное голосовое — ${esc(R.longest_voice[0])}, ${R.longest_voice[2]}`],
+  [fmt(R.longest_laugh[1]), `букв в самом длинном «ахахах» — ${esc(R.longest_laugh[0])}, ${R.longest_laugh[2]}`],
+  [fmt(R.longest_msg.chars), `символов в самом длинном сообщении — ${esc(R.longest_msg.who)}, ${R.longest_msg.date}`],
+  [fmt(O.title_changes), `раз меняли название чата`],
+];
+const recEl = document.getElementById("records");
+recs.forEach(([b, s]) => recEl.append(el("div", "rec", `<b>${b}</b><span>${s}</span>`)));
+
+// ---------- цитаты ----------
+const qEl = document.getElementById("quotes");
+S.top_reacted.forEach(q => {
+  const f = el("figure", "quote");
+  f.innerHTML = `<p>${esc(q.text)}</p><footer><span>${esc(q.who)} · ${q.date}</span><span class="num">${q.r} реакций</span></footer>`;
+  qEl.append(f);
+});
+
+// ---------- опросы ----------
+const pEl = document.getElementById("polls");
+S.polls.forEach(p => {
+  const c = el("div", "poll");
+  c.innerHTML = `<q>${esc(p.q)}</q><div class="ans">${p.a.map(a => `<span>${esc(a)}</span>`).join("")}</div><div class="by">${esc(p.who)} · ${p.date}</div>`;
+  pEl.append(c);
+});
+
+// ---------- досье ----------
+const sel = document.getElementById("who");
+P.forEach((p, i) => { const o = el("option", "", `${i + 1}. ${esc(p.name)}`); o.value = i; sel.append(o); });
+function dossier(i) {
+  const p = P[i];
+  const items = [
+    [fmt(p.n), "сообщений"], [`${p.share}%`, "от всего чата"], [fmt(p.words), "слов"],
+    [p.avg_len, "символов в среднем"], [fmt(p.active_days), "дней с сообщениями"],
+    [`${String(p.peak_hour).padStart(2, "0")}:00`, "любимый час"],
+    [p.mat_per100, "мата на 100 сообщений"], [`${p.laugh_pct}%`, "сообщений со смехом"],
+    [`${p.q_pct}%`, "вопросов"], [fmt(p.circles), "кружочков"], [`${fmt(p.voice_min)} мин`, "голосовых"],
+    [fmt(p.photo), "фото"], [`${p.night_pct}%`, "ночью (00–05)"], [fmt(p.replied_to), "ответов получил(а)"],
+    [p.reply_latency_min != null ? `${p.reply_latency_min} мин` : "—", "отвечает в среднем за"],
+    [fmt(p.starter), "раз оживил(а) чат"], [fmt(p.killer), "раз убил(а) разговор"], [fmt(p.max_run), "сообщений подряд (рекорд)"],
+    [fmt(p.fights_started), "срачей начал(а)"], [fmt(p.fights_in), "срачей участвовал(а)"], [fmt(p.aggr_recv), "наездов получил(а)"],
+    [fmt(p.record_day[1]), `сообщений за ${p.record_day[0]}`],
+  ];
+  const sig = p.signature.length ? p.signature.map(([w]) => `<span class="chip">${esc(w)}</span>`).join("") : `<span class="chip">${esc(p.fav_word || "—")}</span>`;
+  const emo = p.fav_emoji.length ? p.fav_emoji.map(([e]) => e).join(" ") : "—";
+  document.getElementById("dossier").innerHTML =
+    `<div class="top"><h3>${esc(p.name)}</h3><span class="rank">№${i + 1} по сообщениям · в чате с ${p.first} по ${p.last}</span></div>` +
+    `<div class="dgrid">${items.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("")}</div>` +
+    `<div class="split"><div class="words"><h3>Фирменные словечки</h3><div class="chips">${sig}</div></div>` +
+    `<div class="words"><h3>Лучший собеседник и эмодзи</h3><p>${esc(p.best_buddy || "—")} · <span style="font-size:1.4rem">${emo}</span></p></div></div>`;
+}
+sel.addEventListener("change", () => { dossier(+sel.value); try { localStorage.setItem("who", sel.value); } catch (e) {} });
+let start = 0;
+try { const s = localStorage.getItem("who"); if (s !== null && P[+s]) start = +s; } catch (e) {}
+sel.value = start;
+dossier(start);
+</script>
+
+</html>
